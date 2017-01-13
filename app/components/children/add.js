@@ -28,7 +28,8 @@ class AddMovie extends React.Component {
   	//Submit data to be added to local storage
   	handleSubmit(event){
   		event.preventDefault(); //Prevent refresh
-
+  		let movieList = this.props.getList();
+  		this.setState({ id: movieList.length});
   		Storage.addMovie(this.state);
 
   		//Reset current state

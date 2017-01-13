@@ -21724,6 +21724,10 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
+	var _storage = __webpack_require__(183);
+
+	var _storage2 = _interopRequireDefault(_storage);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -21749,10 +21753,23 @@
 
 		//Other functions here
 
-		//Render info to page
-
 
 		_createClass(Home, [{
+			key: "editMovie",
+			value: function editMovie(id) {
+				console.log("edit" + id);
+			}
+		}, {
+			key: "deleteMovie",
+			value: function deleteMovie(id) {
+				this.props.updateList(_storage2.default.deleteMovie(id));
+				//console.log("delete"+id);
+
+			}
+
+			//Render info to page
+
+		}, {
 			key: "render",
 			value: function render() {
 				var movieList = this.props.getList();
@@ -21765,7 +21782,7 @@
 						{ className: "row" },
 						_react2.default.createElement(
 							"div",
-							{ className: "Absolute-Center is-Responsive" },
+							{ className: "Absolute-Center" },
 							_react2.default.createElement(
 								"div",
 								{ className: "jumbotron" },
@@ -21782,10 +21799,63 @@
 
 									/* loop to print out all object in movieList */
 									movieList.map(function (item, index) {
+										var _this2 = this;
+
 										return _react2.default.createElement(
 											"div",
 											{ key: index },
-											item.title
+											_react2.default.createElement(
+												"div",
+												{ className: "row" },
+												_react2.default.createElement(
+													"div",
+													{ className: "col-md-3" },
+													" ",
+													item.title
+												),
+												_react2.default.createElement(
+													"div",
+													{ className: "col-md-1" },
+													" ",
+													item.year
+												),
+												_react2.default.createElement(
+													"div",
+													{ className: "col-md-1" },
+													" ",
+													item.genre
+												),
+												_react2.default.createElement(
+													"div",
+													{ className: "col-md-1" },
+													" ",
+													item.rating
+												),
+												_react2.default.createElement(
+													"div",
+													{ className: "col-md-3" },
+													" ",
+													item.actors
+												),
+												_react2.default.createElement(
+													"div",
+													{ className: "col-md-3" },
+													_react2.default.createElement(
+														"button",
+														{ className: "btn btn-primary", onClick: function onClick() {
+																return _this2.editMovie(item.id);
+															} },
+														"Edit"
+													),
+													_react2.default.createElement(
+														"button",
+														{ className: "btn btn-danger", onClick: function onClick() {
+																return _this2.deleteMovie(item.id);
+															} },
+														"Delete"
+													)
+												)
+											)
 										);
 									}, this),
 									" "
@@ -21836,12 +21906,7 @@
 
 			var _this = _possibleConstructorReturn(this, (Search.__proto__ || Object.getPrototypeOf(Search)).call(this, props));
 
-			_this.state = {
-				searchTerm: "",
-				startYear: "",
-				endYear: "",
-				numArticles: "5"
-			};
+			_this.state = {};
 
 			//Bind functions here
 			return _this;
@@ -21950,7 +22015,8 @@
 			key: "handleSubmit",
 			value: function handleSubmit(event) {
 				event.preventDefault(); //Prevent refresh
-
+				var movieList = this.props.getList();
+				this.setState({ id: movieList.length });
 				_storage2.default.addMovie(this.state);
 
 				//Reset current state
@@ -22126,15 +22192,24 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	var dummyList = [{ title: "Indiana Jones", year: "1983" }, { title: "Star Wars", year: "1978" }];
+	var dummyList = [{ id: 0, title: "Indiana Jones", year: "1983", genre: "Adventure", rating: "5", actors: ["Harrison Ford"] }, { id: 1, title: "Star Wars", year: "1978", genre: "Sci Fi", rating: "4", actors: ["James Earl Jones"] }, { id: 2, title: "Top Gun", year: "1986", genre: "Action", rating: "3", actors: ["Tom Cruise"] }];
 	// Storage functions
 	var storage = {
 
 		addMovie: function addMovie(movie) {
+			movie.id = dummyList.length;
 			dummyList.push(movie);
 		},
 
-		deleteMovie: function deleteMovie(movie) {},
+		deleteMovie: function deleteMovie(id) {
+
+			if (id === dummyList[parseInt(id)].id) {
+				//Verify that the id's match in case id mismatch
+				dummyList.splice(id, 1);
+				console.log(dummyList.length);
+			}
+			return dummyList;
+		},
 
 		editMovie: function editMovie(movie) {},
 
