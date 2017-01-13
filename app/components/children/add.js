@@ -10,6 +10,7 @@ class AddMovie extends React.Component {
 		super(props);
 
 		this.state = {
+			id:"",
 			title: "",
 			year:"",
 			genre:"",
@@ -23,14 +24,28 @@ class AddMovie extends React.Component {
   	}
 
   	//Other functions here
-  	handleSubmit(event){
-  		event.preventDefault();
-  		Storage.addMovie(this.state);
-  		this.props.updateList(this.state);
 
+  	//Submit data to be added to local storage
+  	handleSubmit(event){
+  		event.preventDefault(); //Prevent refresh
+
+  		Storage.addMovie(this.state);
+
+  		//Reset current state
+  		this.setState({ id: "" });
+        this.setState({ title: "" });
+        this.setState({ year: "" });
+        this.setState({ genre: "" });
+        this.setState({ rating: "" });
+        this.setState({ actors: [] });
+
+        let resetForm = document.getElementById("movieForm");
+		resetForm.reset();
   	}
 
+  	//Update state object based on active input field
   	handleChange(event){
+
   		let newState = {};
     	newState[event.target.id] = event.target.value;
     	this.setState(newState);
@@ -46,7 +61,7 @@ class AddMovie extends React.Component {
 				  		<div className="Absolute-Center">
 							<div className="jumbotron">
 								<h1>Add a Movie</h1>
-								<form onSubmit={this.handleSubmit} onChange={this.handleChange}>
+								<form onSubmit={this.handleSubmit} onChange={this.handleChange} id="movieForm">
 									<div className="form-group">
     									<label htmlFor="title">Title</label>
 									    <input type="text" className="form-control" id="title" placeholder="Movie Title" />

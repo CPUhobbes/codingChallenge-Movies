@@ -17,7 +17,7 @@ class Main extends React.Component {
 		super(props);
 
 		this.state = {
-			movieList: {}
+			movieList: [{}]
 		};
 
 		//Bind functions here
@@ -32,7 +32,7 @@ class Main extends React.Component {
 		this.setState({movieList});
 	}
 
-	getList(movieList){
+	getList(){
 		return this.state.movieList;
 	}
 

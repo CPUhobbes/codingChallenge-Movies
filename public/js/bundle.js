@@ -21595,7 +21595,7 @@
 			var _this = _possibleConstructorReturn(this, (Main.__proto__ || Object.getPrototypeOf(Main)).call(this, props));
 
 			_this.state = {
-				movieList: {}
+				movieList: [{}]
 			};
 
 			//Bind functions here
@@ -21614,7 +21614,7 @@
 			}
 		}, {
 			key: "getList",
-			value: function getList(movieList) {
+			value: function getList() {
 				return this.state.movieList;
 			}
 		}, {
@@ -21755,6 +21755,7 @@
 		_createClass(Home, [{
 			key: "render",
 			value: function render() {
+				var movieList = this.props.getList();
 
 				return _react2.default.createElement(
 					"div",
@@ -21773,7 +21774,22 @@
 									null,
 									"Movie List"
 								),
-								console.log(this.props.getList())
+								_react2.default.createElement(
+									"div",
+									null,
+									" ",
+
+
+									/* loop to print out all object in movieList */
+									movieList.map(function (item, index) {
+										return _react2.default.createElement(
+											"div",
+											{ key: index },
+											item.title
+										);
+									}, this),
+									" "
+								)
 							)
 						)
 					)
@@ -21911,6 +21927,7 @@
 			var _this = _possibleConstructorReturn(this, (AddMovie.__proto__ || Object.getPrototypeOf(AddMovie)).call(this, props));
 
 			_this.state = {
+				id: "",
 				title: "",
 				year: "",
 				genre: "",
@@ -21926,17 +21943,34 @@
 
 		//Other functions here
 
+		//Submit data to be added to local storage
+
 
 		_createClass(AddMovie, [{
 			key: "handleSubmit",
 			value: function handleSubmit(event) {
-				event.preventDefault();
+				event.preventDefault(); //Prevent refresh
+
 				_storage2.default.addMovie(this.state);
-				this.props.updateList(this.state);
+
+				//Reset current state
+				this.setState({ id: "" });
+				this.setState({ title: "" });
+				this.setState({ year: "" });
+				this.setState({ genre: "" });
+				this.setState({ rating: "" });
+				this.setState({ actors: [] });
+
+				var resetForm = document.getElementById("movieForm");
+				resetForm.reset();
 			}
+
+			//Update state object based on active input field
+
 		}, {
 			key: "handleChange",
 			value: function handleChange(event) {
+
 				var newState = {};
 				newState[event.target.id] = event.target.value;
 				this.setState(newState);
@@ -21967,7 +22001,7 @@
 								),
 								_react2.default.createElement(
 									"form",
-									{ onSubmit: this.handleSubmit, onChange: this.handleChange },
+									{ onSubmit: this.handleSubmit, onChange: this.handleChange, id: "movieForm" },
 									_react2.default.createElement(
 										"div",
 										{ className: "form-group" },
@@ -22092,11 +22126,12 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+	var dummyList = [{ title: "Indiana Jones", year: "1983" }, { title: "Star Wars", year: "1978" }];
 	// Storage functions
 	var storage = {
 
 		addMovie: function addMovie(movie) {
-			console.log(movie);
+			dummyList.push(movie);
 		},
 
 		deleteMovie: function deleteMovie(movie) {},
@@ -22104,7 +22139,7 @@
 		editMovie: function editMovie(movie) {},
 
 		getMovies: function getMovies() {
-			return { testing: "123" };
+			return dummyList;
 		}
 
 	};

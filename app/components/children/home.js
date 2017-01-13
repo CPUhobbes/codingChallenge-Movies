@@ -19,6 +19,7 @@ class Home extends React.Component {
 
 	//Render info to page
 	render() {
+		let movieList = this.props.getList();
 
 		return(
 			
@@ -27,7 +28,14 @@ class Home extends React.Component {
 				  		<div className="Absolute-Center is-Responsive">
 							<div className="jumbotron">
 								  <h1>Movie List</h1>
-								  {console.log(this.props.getList())}
+
+								 <div> {
+								 	
+								 	/* loop to print out all object in movieList */
+								 	movieList.map(function(item, index){
+								  	return <div key = {index}>{item.title}</div>
+
+								  }, this)} </div>
 							</div>
 				  		</div>
 					</div>
