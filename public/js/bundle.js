@@ -21500,11 +21500,11 @@
 
 	var _home2 = _interopRequireDefault(_home);
 
-	var _search = __webpack_require__(184);
+	var _search = __webpack_require__(181);
 
 	var _search2 = _interopRequireDefault(_search);
 
-	var _add = __webpack_require__(181);
+	var _add = __webpack_require__(182);
 
 	var _add2 = _interopRequireDefault(_add);
 
@@ -21565,15 +21565,15 @@
 
 	var _home2 = _interopRequireDefault(_home);
 
-	var _add = __webpack_require__(181);
+	var _add = __webpack_require__(182);
 
 	var _add2 = _interopRequireDefault(_add);
 
-	var _search = __webpack_require__(184);
+	var _search = __webpack_require__(181);
 
 	var _search2 = _interopRequireDefault(_search);
 
-	var _storage = __webpack_require__(182);
+	var _storage = __webpack_require__(183);
 
 	var _storage2 = _interopRequireDefault(_storage);
 
@@ -21597,12 +21597,31 @@
 			_this.state = {
 				movieList: {}
 			};
+
+			//Bind functions here
+
+			_this.updateList = _this.updateList.bind(_this);
+			_this.getList = _this.getList.bind(_this);
 			return _this;
 		}
 
+		//Other functions here
+
 		_createClass(Main, [{
+			key: "updateList",
+			value: function updateList(movieList) {
+				this.setState({ movieList: movieList });
+			}
+		}, {
+			key: "getList",
+			value: function getList(movieList) {
+				return this.state.movieList;
+			}
+		}, {
 			key: "componentWillMount",
-			value: function componentWillMount() {}
+			value: function componentWillMount() {
+				this.state.movieList = _storage2.default.getMovies();
+			}
 		}, {
 			key: "render",
 			value: function render() {
@@ -21677,8 +21696,7 @@
 							)
 						)
 					),
-					_react2.default.createElement("div", null),
-					_react2.default.cloneElement(this.props.children, { movieList: this.movieList })
+					_react2.default.cloneElement(this.props.children, { updateList: this.updateList, getList: this.getList })
 				);
 			}
 		}]);
@@ -21754,7 +21772,8 @@
 									"h1",
 									null,
 									"Movie List"
-								)
+								),
+								console.log(this.props.getList())
 							)
 						)
 					)
@@ -21771,200 +21790,6 @@
 
 /***/ },
 /* 181 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-
-	// Import packages
-
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
-
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-	var _react = __webpack_require__(1);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _storage = __webpack_require__(182);
-
-	var _storage2 = _interopRequireDefault(_storage);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	// AddMovie class component
-	var AddMovie = function (_React$Component) {
-		_inherits(AddMovie, _React$Component);
-
-		function AddMovie(props) {
-			_classCallCheck(this, AddMovie);
-
-			var _this = _possibleConstructorReturn(this, (AddMovie.__proto__ || Object.getPrototypeOf(AddMovie)).call(this, props));
-
-			_this.state = {
-				title: "",
-				year: "",
-				genre: "",
-				rating: "",
-				actors: []
-			};
-
-			//Bind functions here
-			_this.handleSubmit = _this.handleSubmit.bind(_this);
-			return _this;
-		}
-
-		//Other functions here
-
-
-		_createClass(AddMovie, [{
-			key: "handleSubmit",
-			value: function handleSubmit(event) {}
-
-			//Render info to page
-
-		}, {
-			key: "render",
-			value: function render() {
-
-				return _react2.default.createElement(
-					"div",
-					{ className: "container" },
-					_react2.default.createElement(
-						"div",
-						{ className: "row" },
-						_react2.default.createElement(
-							"div",
-							{ className: "Absolute-Center" },
-							_react2.default.createElement(
-								"div",
-								{ className: "jumbotron" },
-								_react2.default.createElement(
-									"h1",
-									null,
-									"Add Movies"
-								),
-								_react2.default.createElement("form", { onSubmit: this.handleSubmit })
-							)
-						)
-					)
-				);
-			}
-		}]);
-
-		return AddMovie;
-	}(_react2.default.Component);
-	// Export the component back for use in other files
-
-
-	exports.default = AddMovie;
-
-/***/ },
-/* 182 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-
-	// Import packages
-
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
-
-	var _localStorage = __webpack_require__(183);
-
-	var _localStorage2 = _interopRequireDefault(_localStorage);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	// Storage functions
-	var storage = {
-
-		addMovie: function addMovie(movie) {},
-
-		deleteMovie: function deleteMovie(movie) {},
-
-		editMovie: function editMovie(movie) {},
-
-		getMovies: function getMovies() {
-			return { testing: "123" };
-		}
-
-	};
-
-	// We export the helpers function (which contains getGithubInfo)
-	exports.default = storage;
-
-/***/ },
-/* 183 */
-/***/ function(module, exports) {
-
-	/* WEBPACK VAR INJECTION */(function(global) {// http://www.rajdeepd.com/articles/chrome/localstrg/LocalStorageSample.htm
-
-	// NOTE:
-	// this varies from actual localStorage in some subtle ways
-
-	// also, there is no persistence
-	// TODO persist
-	(function () {
-	  "use strict";
-
-	  var db;
-
-	  function LocalStorage() {
-	  }
-	  db = LocalStorage;
-
-	  db.prototype.getItem = function (key) {
-	    if (this.hasOwnProperty(key)) {
-	      return String(this[key]);
-	    }
-	    return null;
-	  };
-
-	  db.prototype.setItem = function (key, val) {
-	    this[key] = String(val);
-	  };
-
-	  db.prototype.removeItem = function (key) {
-	    delete this[key];
-	  };
-
-	  db.prototype.clear = function () {
-	    var self = this;
-	    Object.keys(self).forEach(function (key) {
-	      self[key] = undefined;
-	      delete self[key];
-	    });
-	  };
-
-	  db.prototype.key = function (i) {
-	    i = i || 0;
-	    return Object.keys(this)[i];
-	  };
-
-	  db.prototype.__defineGetter__('length', function () {
-	    return Object.keys(this).length;
-	  });
-
-	  if (global.localStorage) {
-	    module.exports = localStorage;
-	  } else {
-	    module.exports = new LocalStorage();
-	  }
-	}());
-
-	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
-
-/***/ },
-/* 184 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -22045,6 +21870,308 @@
 
 
 	exports.default = Search;
+
+/***/ },
+/* 182 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	// Import packages
+
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _storage = __webpack_require__(183);
+
+	var _storage2 = _interopRequireDefault(_storage);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	// AddMovie class component
+	var AddMovie = function (_React$Component) {
+		_inherits(AddMovie, _React$Component);
+
+		function AddMovie(props) {
+			_classCallCheck(this, AddMovie);
+
+			var _this = _possibleConstructorReturn(this, (AddMovie.__proto__ || Object.getPrototypeOf(AddMovie)).call(this, props));
+
+			_this.state = {
+				title: "",
+				year: "",
+				genre: "",
+				rating: "",
+				actors: []
+			};
+
+			//Bind functions here
+			_this.handleSubmit = _this.handleSubmit.bind(_this);
+			_this.handleChange = _this.handleChange.bind(_this);
+			return _this;
+		}
+
+		//Other functions here
+
+
+		_createClass(AddMovie, [{
+			key: "handleSubmit",
+			value: function handleSubmit(event) {
+				event.preventDefault();
+				_storage2.default.addMovie(this.state);
+				this.props.updateList(this.state);
+			}
+		}, {
+			key: "handleChange",
+			value: function handleChange(event) {
+				var newState = {};
+				newState[event.target.id] = event.target.value;
+				this.setState(newState);
+			}
+
+			//Render info to page
+
+		}, {
+			key: "render",
+			value: function render() {
+
+				return _react2.default.createElement(
+					"div",
+					{ className: "container" },
+					_react2.default.createElement(
+						"div",
+						{ className: "row" },
+						_react2.default.createElement(
+							"div",
+							{ className: "Absolute-Center" },
+							_react2.default.createElement(
+								"div",
+								{ className: "jumbotron" },
+								_react2.default.createElement(
+									"h1",
+									null,
+									"Add a Movie"
+								),
+								_react2.default.createElement(
+									"form",
+									{ onSubmit: this.handleSubmit, onChange: this.handleChange },
+									_react2.default.createElement(
+										"div",
+										{ className: "form-group" },
+										_react2.default.createElement(
+											"label",
+											{ htmlFor: "title" },
+											"Title"
+										),
+										_react2.default.createElement("input", { type: "text", className: "form-control", id: "title", placeholder: "Movie Title" })
+									),
+									_react2.default.createElement(
+										"div",
+										{ className: "form-group" },
+										_react2.default.createElement(
+											"label",
+											{ htmlFor: "year" },
+											"Year"
+										),
+										_react2.default.createElement("input", { type: "number", className: "form-control", id: "year", placeholder: "Movie Year" })
+									),
+									_react2.default.createElement(
+										"div",
+										{ className: "form-group" },
+										_react2.default.createElement(
+											"label",
+											{ htmlFor: "genre" },
+											"Genre"
+										),
+										_react2.default.createElement("input", { type: "text", className: "form-control", id: "genre", placeholder: "Movie Genre" })
+									),
+									_react2.default.createElement(
+										"div",
+										{ className: "form-group" },
+										_react2.default.createElement(
+											"label",
+											{ htmlFor: "rating" },
+											"Rating (1-5)"
+										),
+										_react2.default.createElement(
+											"select",
+											{ className: "form-control", id: "rating" },
+											_react2.default.createElement(
+												"option",
+												null,
+												"1"
+											),
+											_react2.default.createElement(
+												"option",
+												null,
+												"2"
+											),
+											_react2.default.createElement(
+												"option",
+												null,
+												"3"
+											),
+											_react2.default.createElement(
+												"option",
+												null,
+												"4"
+											),
+											_react2.default.createElement(
+												"option",
+												null,
+												"5"
+											)
+										)
+									),
+									_react2.default.createElement(
+										"div",
+										{ className: "form-group" },
+										_react2.default.createElement(
+											"label",
+											{ htmlFor: "actors" },
+											"Actors"
+										),
+										_react2.default.createElement("input", { type: "text", className: "form-control", id: "actors", placeholder: "Movie Actors" })
+									),
+									_react2.default.createElement(
+										"div",
+										{ className: "form-group" },
+										_react2.default.createElement(
+											"div",
+											{ className: "text-center" },
+											_react2.default.createElement(
+												"button",
+												{ type: "submit", className: "btn btn-default" },
+												"Add Movie!"
+											)
+										)
+									)
+								)
+							)
+						)
+					)
+				);
+			}
+		}]);
+
+		return AddMovie;
+	}(_react2.default.Component);
+	// Export the component back for use in other files
+
+
+	exports.default = AddMovie;
+
+/***/ },
+/* 183 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	// Import packages
+
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+
+	var _localStorage = __webpack_require__(184);
+
+	var _localStorage2 = _interopRequireDefault(_localStorage);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	// Storage functions
+	var storage = {
+
+		addMovie: function addMovie(movie) {
+			console.log(movie);
+		},
+
+		deleteMovie: function deleteMovie(movie) {},
+
+		editMovie: function editMovie(movie) {},
+
+		getMovies: function getMovies() {
+			return { testing: "123" };
+		}
+
+	};
+
+	// We export the helpers function (which contains getGithubInfo)
+	exports.default = storage;
+
+/***/ },
+/* 184 */
+/***/ function(module, exports) {
+
+	/* WEBPACK VAR INJECTION */(function(global) {// http://www.rajdeepd.com/articles/chrome/localstrg/LocalStorageSample.htm
+
+	// NOTE:
+	// this varies from actual localStorage in some subtle ways
+
+	// also, there is no persistence
+	// TODO persist
+	(function () {
+	  "use strict";
+
+	  var db;
+
+	  function LocalStorage() {
+	  }
+	  db = LocalStorage;
+
+	  db.prototype.getItem = function (key) {
+	    if (this.hasOwnProperty(key)) {
+	      return String(this[key]);
+	    }
+	    return null;
+	  };
+
+	  db.prototype.setItem = function (key, val) {
+	    this[key] = String(val);
+	  };
+
+	  db.prototype.removeItem = function (key) {
+	    delete this[key];
+	  };
+
+	  db.prototype.clear = function () {
+	    var self = this;
+	    Object.keys(self).forEach(function (key) {
+	      self[key] = undefined;
+	      delete self[key];
+	    });
+	  };
+
+	  db.prototype.key = function (i) {
+	    i = i || 0;
+	    return Object.keys(this)[i];
+	  };
+
+	  db.prototype.__defineGetter__('length', function () {
+	    return Object.keys(this).length;
+	  });
+
+	  if (global.localStorage) {
+	    module.exports = localStorage;
+	  } else {
+	    module.exports = new LocalStorage();
+	  }
+	}());
+
+	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
 
 /***/ },
 /* 185 */

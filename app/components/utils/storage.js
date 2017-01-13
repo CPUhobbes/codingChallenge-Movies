@@ -7,7 +7,7 @@ import localStorage from 'localStorage';
 const storage = {
 
 	addMovie: movie => {
-
+		console.log(movie);
 	},
 
 	deleteMovie: (movie) => {

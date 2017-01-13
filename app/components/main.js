@@ -19,10 +19,25 @@ class Main extends React.Component {
 		this.state = {
 			movieList: {}
 		};
+
+		//Bind functions here
+
+		this.updateList = this.updateList.bind(this);
+		this.getList = this.getList.bind(this);
+	}
+
+	//Other functions here
+
+	updateList(movieList){
+		this.setState({movieList});
+	}
+
+	getList(movieList){
+		return this.state.movieList;
 	}
 
 	componentWillMount(){
-
+		this.state.movieList = Storage.getMovies();
 
 	}
 
@@ -56,9 +71,7 @@ class Main extends React.Component {
 			      	</div>
 			    </nav>
 
-			    <div></div>
-
-			    {React.cloneElement(this.props.children, {movieList:this.movieList})}
+			    {React.cloneElement(this.props.children, {updateList:this.updateList, getList: this.getList})}
 			
 			{/* -- END OF RENDER -- */}
 			</div>

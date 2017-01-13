@@ -27,6 +27,7 @@ class Home extends React.Component {
 				  		<div className="Absolute-Center is-Responsive">
 							<div className="jumbotron">
 								  <h1>Movie List</h1>
+								  {console.log(this.props.getList())}
 							</div>
 				  		</div>
 					</div>
