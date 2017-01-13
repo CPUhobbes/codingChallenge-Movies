@@ -1,3 +1,8 @@
+## Packages Used
+- Webpack with Babel
+- localStorage
+- React Router
+
 # Coding Challenge
 
 
