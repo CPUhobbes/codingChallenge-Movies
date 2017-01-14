@@ -23,8 +23,8 @@ class Home extends React.Component {
 
   	}
 
-  	deleteMovie(id){
-  		this.props.updateList(Storage.deleteMovie(id));
+  	deleteMovie(pos, id){
+  		this.props.updateList(Storage.deleteMovie(pos, id));
   		//console.log("delete"+id);
 
 
@@ -54,7 +54,7 @@ class Home extends React.Component {
 									  		<div className = "col-md-1"> {item.genre}</div>
 									  		<div className = "col-md-1"> {item.rating}</div>
 									  		<div className = "col-md-3"> {item.actors}</div>
-									  		<div className = "col-md-3"> 
+									  		<div className = "col-md-3"> {item.id}
 									  			<button className="btn btn-primary" onClick={()=>this.editMovie(item.id)}>Edit</button>
 									  			<button className="btn btn-danger" onClick={()=>this.deleteMovie(item.id)}>Delete</button>
 									  		</div>

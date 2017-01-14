@@ -4,7 +4,7 @@
 import localStorage from 'localStorage';
 
 let dummyList = [{id:0, title:"Indiana Jones", year:"1983", genre:"Adventure", rating: "5", actors:["Harrison Ford"]}, 
-				{id:1, title:"Star Wars", year:"1978", genre:"Sci Fi", rating: "4", actors:["James Earl Jones"]},
+				{id:1, title:"Top Gun", year:"1978", genre:"Sci Fi", rating: "4", actors:["James Earl Jones"]},
 				{id:2, title:"Top Gun", year:"1986", genre:"Action", rating: "3", actors:["Tom Cruise"]}];
 // Storage functions
 const storage = {
@@ -14,12 +14,12 @@ const storage = {
 		dummyList.push(movie);
 	},
 
-	deleteMovie: (id) => {
+	deleteMovie: (pos) => {
 
-		if(id === dummyList[parseInt(id)].id){  //Verify that the id's match in case id mismatch
-			dummyList.splice(id,1)
-			console.log(dummyList.length)
-		}
+		_.remove(dummyList, (ele) => {
+  			return ele.id === pos;
+		});
+
 		return dummyList;
 
 	},
