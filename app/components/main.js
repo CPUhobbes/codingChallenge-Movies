@@ -7,7 +7,7 @@ import Index from "./children/home";
 import Add from "./children/add";
 import Search from "./children/search";
 
-import Storage from "./utils/storage";
+import MovieController from "./../controllers/movieController";
 
 // Main class component
 class Main extends React.Component {
@@ -37,7 +37,7 @@ class Main extends React.Component {
 	}
 
 	componentWillMount(){
-		this.state.movieList = Storage.getMovies();
+		this.state.movieList = MovieController.getMovies();
 
 	}
 

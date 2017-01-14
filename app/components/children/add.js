@@ -2,7 +2,7 @@
 
 // Import packages
 import React from "react";
-import Storage from ".././utils/storage";
+import MovieController from "./../../controllers/movieController";
 
 // AddMovie class component
 class AddMovie extends React.Component {
@@ -25,12 +25,12 @@ class AddMovie extends React.Component {
 
   	//Other functions here
 
-  	//Submit data to be added to local storage
+  	//Submit data to be added to local MovieModel
   	handleSubmit(event){
   		event.preventDefault(); //Prevent refresh
   		let movieList = this.props.getList();
   		this.setState({ id: movieList.length});
-  		Storage.addMovie(this.state);
+  		MovieController.addMovie(this.state);
 
   		//Reset current state
   		this.setState({ id: "" });

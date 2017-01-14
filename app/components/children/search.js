@@ -1,7 +1,7 @@
 "use strict";
 
 import React from "react";
-import Storage from ".././utils/storage";
+import MovieController from "./../../controllers/movieController";
 
 // Load the full build.
 const _ = require('lodash');
@@ -42,9 +42,14 @@ class Search extends React.Component {
 
   	}
 
-  	deleteMovie(pos, id){
-  		this.props.updateList(Storage.deleteMovie(id));
+  	deleteMovie(id){
+
+  		this.props.updateList(MovieController.deleteMovie(id));
   		//console.log("delete"+id);
+  		_.remove(this.state.searchResults, (ele) => {
+  			return ele.id === id;
+		});
+		this.setState({searchResults: this.state.searchResults})
 
 
   	}
@@ -90,8 +95,8 @@ class Search extends React.Component {
 									  		<div className = "col-md-1"> {item.rating}</div>
 									  		<div className = "col-md-3"> {item.actors}</div>
 									  		<div className = "col-md-3"> 
-									  			<button className="btn btn-primary" onClick={()=>this.editMovie(index)}>Edit</button>
-									  			<button className="btn btn-danger" onClick={()=>this.deleteMovie(index)}>Delete</button>
+									  			<button className="btn btn-primary" onClick={()=>this.editMovie(item.id)}>Edit</button>
+									  			<button className="btn btn-danger" onClick={()=>this.deleteMovie(item.id)}>Delete</button>
 									  		</div>
 									  	</div>
 									</div>

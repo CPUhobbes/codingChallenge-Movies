@@ -2,13 +2,12 @@
 
 // Import packages
 import React from "react";
-import Storage from ".././utils/storage";
+import MovieController from "./../../controllers/movieController";
 
 // Home class component
 class Home extends React.Component {
   	constructor(props) {
 		super(props);
-
 		this.state = {
 			
 		};
@@ -24,7 +23,7 @@ class Home extends React.Component {
   	}
 
   	deleteMovie(pos, id){
-  		this.props.updateList(Storage.deleteMovie(pos, id));
+  		this.props.updateList(MovieController.deleteMovie(pos, id));
   		//console.log("delete"+id);
 
 
