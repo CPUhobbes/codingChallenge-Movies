@@ -29,7 +29,7 @@ class Main extends React.Component {
 	//Other functions here
 
 	updateList(movieList){
-		this.setState({movieList});
+		this.setState({movieList: movieList});
 	}
 
 	getList(){
@@ -38,7 +38,6 @@ class Main extends React.Component {
 
 	componentWillMount(){
 		this.state.movieList = MovieController.getMovies();
-
 	}
 
 	render(){

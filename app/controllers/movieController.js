@@ -27,7 +27,8 @@ const movieController = {
 	},
 	  
 	editMovie: (movie) => {
-
+		
+		console.log(movie);
 	},
 
 	getMovies: () => {
