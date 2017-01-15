@@ -25,21 +25,22 @@ class AddMovie extends React.Component {
   	}
 
   	//Other functions here
+  	componentWillMount() {
+  	 	this.setState({ id: this.props.getCounter()});
+  	 }
 
-  	//Submit data to be added to local MovieModel
+  	//Submit data to MovieController
   	handleSubmit(event){
   		event.preventDefault(); //Prevent refresh
-  		let movieList = this.props.getList();
-  		this.setState({ id: movieList.length});
-  		MovieController.addMovie(this.state);
+  		this.props.updateList(MovieController.addMovie(this.state));
 
   		//Reset current state
-  		this.setState({ id: "" });
-        this.setState({ title: "" });
-        this.setState({ year: "" });
-        this.setState({ genre: "" });
-        this.setState({ rating: "" });
-        this.setState({ actors: [] });
+  		this.setState({ id: this.props.getCounter()});
+        this.setState({ title: null });
+        this.setState({ year: null });
+        this.setState({ genre: null });
+        this.setState({ rating: null });
+        this.setState({ actors: null });
 
         let resetForm = document.getElementById("movieForm");
 		resetForm.reset();
@@ -104,5 +105,5 @@ class AddMovie extends React.Component {
 		)
 	}
 }
-// Export the component back for use in other files
+
 export default AddMovie;

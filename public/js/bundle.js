@@ -21504,7 +21504,7 @@
 
 	var _search2 = _interopRequireDefault(_search);
 
-	var _add = __webpack_require__(181);
+	var _add = __webpack_require__(184);
 
 	var _add2 = _interopRequireDefault(_add);
 
@@ -21565,7 +21565,7 @@
 
 	var _home2 = _interopRequireDefault(_home);
 
-	var _add = __webpack_require__(181);
+	var _add = __webpack_require__(184);
 
 	var _add2 = _interopRequireDefault(_add);
 
@@ -21573,7 +21573,7 @@
 
 	var _search2 = _interopRequireDefault(_search);
 
-	var _movieController = __webpack_require__(182);
+	var _movieController = __webpack_require__(181);
 
 	var _movieController2 = _interopRequireDefault(_movieController);
 
@@ -21595,13 +21595,16 @@
 			var _this = _possibleConstructorReturn(this, (Main.__proto__ || Object.getPrototypeOf(Main)).call(this, props));
 
 			_this.state = {
-				movieList: [{}]
+				movieList: [],
+				movieCounter: 0
 			};
 
 			//Bind functions here
 
 			_this.updateList = _this.updateList.bind(_this);
 			_this.getList = _this.getList.bind(_this);
+			_this.setCounter = _this.setCounter.bind(_this);
+			_this.getCounter = _this.getCounter.bind(_this);
 			return _this;
 		}
 
@@ -21611,6 +21614,16 @@
 			key: "updateList",
 			value: function updateList(movieList) {
 				this.setState({ movieList: movieList });
+				this.setState({ movieCounter: this.state.movieCounter += 1 });
+			}
+		}, {
+			key: "setCounter",
+			value: function setCounter(count) {
+
+				//Added function so state will update immediately
+				this.setState({ movieCounter: count }, function () {
+					return null;
+				});
 			}
 		}, {
 			key: "getList",
@@ -21618,9 +21631,16 @@
 				return this.state.movieList;
 			}
 		}, {
+			key: "getCounter",
+			value: function getCounter() {
+				return this.state.movieCounter;
+			}
+		}, {
 			key: "componentWillMount",
 			value: function componentWillMount() {
-				this.state.movieList = _movieController2.default.getMovies();
+				var movies = _movieController2.default.getMovies();
+				this.state.movieList = movies;
+				this.setCounter(movies.length);
 			}
 		}, {
 			key: "render",
@@ -21696,7 +21716,7 @@
 							)
 						)
 					),
-					_react2.default.cloneElement(this.props.children, { updateList: this.updateList, getList: this.getList })
+					_react2.default.cloneElement(this.props.children, { updateList: this.updateList, getList: this.getList, getCounter: this.getCounter, setCounter: this.setCounter })
 				);
 			}
 		}]);
@@ -21724,7 +21744,7 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _movieController = __webpack_require__(182);
+	var _movieController = __webpack_require__(181);
 
 	var _movieController2 = _interopRequireDefault(_movieController);
 
@@ -21805,6 +21825,25 @@
 			key: "deleteMovie",
 			value: function deleteMovie(pos, id) {
 				this.props.updateList(_movieController2.default.deleteMovie(pos, id));
+			}
+
+			/*
+	   * 	Seeding Functions
+	   */
+
+		}, {
+			key: "seedMovies",
+			value: function seedMovies() {
+				var movies = _movieController2.default.seedMovies();
+
+				this.props.updateList(movies);
+				this.props.setCounter(movies.length);
+			}
+		}, {
+			key: "deleteAll",
+			value: function deleteAll() {
+				var temp = _movieController2.default.deleteAll();
+				this.props.updateList(temp);
 			}
 		}, {
 			key: "renderFields",
@@ -21930,9 +21969,10 @@
 		}, {
 			key: "render",
 			value: function render() {
+				var _this3 = this;
 
 				var movieList = this.props.getList();
-
+				//console.log(this.props.getList());
 				return _react2.default.createElement(
 					"div",
 					{ className: "container" },
@@ -21971,6 +22011,20 @@
 								)
 							)
 						)
+					),
+					_react2.default.createElement(
+						"button",
+						{ className: "btn btn-success", onClick: function onClick() {
+								return _this3.seedMovies();
+							} },
+						"SEED DB"
+					),
+					_react2.default.createElement(
+						"button",
+						{ className: "btn btn-danger", onClick: function onClick() {
+								return _this3.deleteAll();
+							} },
+						"DELETE ALL"
 					)
 				);
 			}
@@ -21995,13 +22049,229 @@
 		value: true
 	});
 
+	var _localStorage = __webpack_require__(182);
+
+	var _localStorage2 = _interopRequireDefault(_localStorage);
+
+	var _movieModel = __webpack_require__(183);
+
+	var _movieModel2 = _interopRequireDefault(_movieModel);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	//Seeded movieList from "model"
+	//let movieList = MovieModel;
+	//updateStorage();
+	var movieList = [];
+
+	try {
+		movieList = JSON.parse(_localStorage2.default.getItem('db'));
+		if (movieList === null) {
+			movieList = [];
+		}
+	} catch (err) {
+		console.log("Cannot read Data");
+	}
+
+	//let myValue = localStorage.getItem('myKey');
+	//console.log(JSON.parse(myValue));
+
+
+	/*
+	 *   Helper functions
+	 */
+
+	function findMovieIndex(id) {
+
+		return _.findIndex(movieList, { 'id': id });
+	}
+
+	function updateStorage() {
+		_localStorage2.default.setItem('db', JSON.stringify(movieList));
+		console.log(movieList);
+	}
+
+	/*
+	 *   Movie Controller
+	 */
+
+	var movieController = {
+
+		/*
+	  *   CRUD functions
+	  */
+
+		addMovie: function addMovie(movie) {
+			movieList.push(movie);
+			updateStorage();
+			return movieList;
+		},
+
+		deleteMovie: function deleteMovie(id) {
+
+			_.remove(movieList, function (ele) {
+				return ele.id === id;
+			});
+
+			updateStorage();
+			return movieList;
+		},
+
+		editMovie: function editMovie(movie) {
+			var index = findMovieIndex(movie.id);
+			var editFields = _.omitBy(movie, _.isNull);
+
+			//Assign new object values
+			_.assign(movieList[index], editFields);
+
+			movieList[index].edit = false;
+			updateStorage();
+			return movieList;
+		},
+
+		getMovies: function getMovies() {
+			return movieList;
+		},
+
+		/*
+	  *   Edit state functions
+	  */
+
+		updateEditState: function updateEditState(id) {
+			movieList[findMovieIndex(id)].edit = true;
+			return movieList;
+		},
+
+		undoEditState: function undoEditState(id) {
+
+			movieList[findMovieIndex(id)].edit = false;
+			return movieList;
+		},
+
+		/*
+	  *   Local storage functions
+	  */
+
+		seedMovies: function seedMovies() {
+			movieList = _movieModel2.default;
+			_localStorage2.default.setItem('db', JSON.stringify(movieList));
+			return movieList;
+		},
+
+		deleteAll: function deleteAll() {
+			_localStorage2.default.clear();
+			movieList = [];
+			return movieList;
+		}
+
+	};
+
+	exports.default = movieController;
+
+/***/ },
+/* 182 */
+/***/ function(module, exports) {
+
+	/* WEBPACK VAR INJECTION */(function(global) {// http://www.rajdeepd.com/articles/chrome/localstrg/LocalStorageSample.htm
+
+	// NOTE:
+	// this varies from actual localStorage in some subtle ways
+
+	// also, there is no persistence
+	// TODO persist
+	(function () {
+	  "use strict";
+
+	  var db;
+
+	  function LocalStorage() {
+	  }
+	  db = LocalStorage;
+
+	  db.prototype.getItem = function (key) {
+	    if (this.hasOwnProperty(key)) {
+	      return String(this[key]);
+	    }
+	    return null;
+	  };
+
+	  db.prototype.setItem = function (key, val) {
+	    this[key] = String(val);
+	  };
+
+	  db.prototype.removeItem = function (key) {
+	    delete this[key];
+	  };
+
+	  db.prototype.clear = function () {
+	    var self = this;
+	    Object.keys(self).forEach(function (key) {
+	      self[key] = undefined;
+	      delete self[key];
+	    });
+	  };
+
+	  db.prototype.key = function (i) {
+	    i = i || 0;
+	    return Object.keys(this)[i];
+	  };
+
+	  db.prototype.__defineGetter__('length', function () {
+	    return Object.keys(this).length;
+	  });
+
+	  if (global.localStorage) {
+	    module.exports = localStorage;
+	  } else {
+	    module.exports = new LocalStorage();
+	  }
+	}());
+
+	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
+
+/***/ },
+/* 183 */
+/***/ function(module, exports) {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+	function Movie(id, title, year, genre, rating, actors, edit) {
+		this.id = id;
+		this.title = title;
+		this.year = year;
+		this.genre = genre;
+		this.rating = rating;
+		this.actors = actors;
+		this.edit = edit;
+	}
+
+	//Seeded Movie List
+	var seedList = [new Movie(0, "Indiana Jones", "1983", "Adventure", 5, ["Harrison Ford"], false), new Movie(1, "Star Wars", "1978", "Sci Fi", "4", ["James Earl Jones"], false), new Movie(2, "Top Gun", "1986", "Action", "3", ["Tom Cruise"], false), new Movie(3, "Total Recall", "1986", "Sci Fi", "3", ["Arnold Schwarzenegger"], false), new Movie(4, "Total Recall", "2012", "Sci Fi", "2", ["Colin Farrell"], false)];
+
+	exports.default = seedList;
+
+/***/ },
+/* 184 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	// Import packages
+
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 	var _react = __webpack_require__(1);
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _movieController = __webpack_require__(182);
+	var _movieController = __webpack_require__(181);
 
 	var _movieController2 = _interopRequireDefault(_movieController);
 
@@ -22040,24 +22310,28 @@
 
 		//Other functions here
 
-		//Submit data to be added to local MovieModel
-
 
 		_createClass(AddMovie, [{
+			key: "componentWillMount",
+			value: function componentWillMount() {
+				this.setState({ id: this.props.getCounter() });
+			}
+
+			//Submit data to MovieController
+
+		}, {
 			key: "handleSubmit",
 			value: function handleSubmit(event) {
 				event.preventDefault(); //Prevent refresh
-				var movieList = this.props.getList();
-				this.setState({ id: movieList.length });
-				_movieController2.default.addMovie(this.state);
+				this.props.updateList(_movieController2.default.addMovie(this.state));
 
 				//Reset current state
-				this.setState({ id: "" });
-				this.setState({ title: "" });
-				this.setState({ year: "" });
-				this.setState({ genre: "" });
-				this.setState({ rating: "" });
-				this.setState({ actors: [] });
+				this.setState({ id: this.props.getCounter() });
+				this.setState({ title: null });
+				this.setState({ year: null });
+				this.setState({ genre: null });
+				this.setState({ rating: null });
+				this.setState({ actors: null });
 
 				var resetForm = document.getElementById("movieForm");
 				resetForm.reset();
@@ -22201,174 +22475,8 @@
 
 		return AddMovie;
 	}(_react2.default.Component);
-	// Export the component back for use in other files
-
 
 	exports.default = AddMovie;
-
-/***/ },
-/* 182 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-
-	// Import packages
-
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
-
-	var _localStorage = __webpack_require__(183);
-
-	var _localStorage2 = _interopRequireDefault(_localStorage);
-
-	var _movieModel = __webpack_require__(184);
-
-	var _movieModel2 = _interopRequireDefault(_movieModel);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	//Seeded movieList from "model"
-	var movieList = _movieModel2.default;
-
-	//Find Movie Index Helper Function
-	function findMovieIndex(id) {
-
-		return _.findIndex(movieList, { 'id': id });
-	}
-
-	// Storage functions
-	var movieController = {
-
-		addMovie: function addMovie(movie) {
-			movie.id = movieList.length;
-			movieList.push(movie);
-		},
-
-		deleteMovie: function deleteMovie(id) {
-
-			_.remove(movieList, function (ele) {
-				return ele.id === id;
-			});
-
-			return movieList;
-		},
-
-		editMovie: function editMovie(movie) {
-			var index = findMovieIndex(movie.id);
-			var editFields = _.omitBy(movie, _.isNull);
-
-			//Verify edit was made
-			//console.log(_.assign(movieList[index], editFields));
-
-			movieList[index].edit = false;
-			return movieList;
-		},
-
-		updateEditState: function updateEditState(id) {
-
-			movieList[findMovieIndex(id)].edit = true;
-			return movieList;
-		},
-
-		undoEditState: function undoEditState(id) {
-
-			movieList[findMovieIndex(id)].edit = false;
-			return movieList;
-		},
-
-		getMovies: function getMovies() {
-			return movieList;
-		}
-	};
-
-	// We export the helpers function (which contains getGithubInfo)
-	exports.default = movieController;
-
-/***/ },
-/* 183 */
-/***/ function(module, exports) {
-
-	/* WEBPACK VAR INJECTION */(function(global) {// http://www.rajdeepd.com/articles/chrome/localstrg/LocalStorageSample.htm
-
-	// NOTE:
-	// this varies from actual localStorage in some subtle ways
-
-	// also, there is no persistence
-	// TODO persist
-	(function () {
-	  "use strict";
-
-	  var db;
-
-	  function LocalStorage() {
-	  }
-	  db = LocalStorage;
-
-	  db.prototype.getItem = function (key) {
-	    if (this.hasOwnProperty(key)) {
-	      return String(this[key]);
-	    }
-	    return null;
-	  };
-
-	  db.prototype.setItem = function (key, val) {
-	    this[key] = String(val);
-	  };
-
-	  db.prototype.removeItem = function (key) {
-	    delete this[key];
-	  };
-
-	  db.prototype.clear = function () {
-	    var self = this;
-	    Object.keys(self).forEach(function (key) {
-	      self[key] = undefined;
-	      delete self[key];
-	    });
-	  };
-
-	  db.prototype.key = function (i) {
-	    i = i || 0;
-	    return Object.keys(this)[i];
-	  };
-
-	  db.prototype.__defineGetter__('length', function () {
-	    return Object.keys(this).length;
-	  });
-
-	  if (global.localStorage) {
-	    module.exports = localStorage;
-	  } else {
-	    module.exports = new LocalStorage();
-	  }
-	}());
-
-	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
-
-/***/ },
-/* 184 */
-/***/ function(module, exports) {
-
-	"use strict";
-
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
-	function Movie(id, title, year, genre, rating, actors, edit) {
-		this.id = id;
-		this.title = title;
-		this.year = year;
-		this.genre = genre;
-		this.rating = rating;
-		this.actors = actors;
-		this.edit = edit;
-	}
-
-	//Seeded Movie List
-	var seedList = [new Movie(0, "Indiana Jones", "1983", "Adventure", 5, ["Harrison Ford"], false), new Movie(1, "Star Wars", "1978", "Sci Fi", "4", ["James Earl Jones"], false), new Movie(2, "Top Gun", "1986", "Action", "3", ["Tom Cruise"], false), new Movie(3, "Total Recall", "1986", "Sci Fi", "3", ["Arnold Schwarzenegger"], false), new Movie(4, "Total Recall", "2012", "Sci Fi", "2", ["Colin Farrell"], false)];
-
-	exports.default = seedList;
 
 /***/ },
 /* 185 */
@@ -22386,7 +22494,7 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _movieController = __webpack_require__(182);
+	var _movieController = __webpack_require__(181);
 
 	var _movieController2 = _interopRequireDefault(_movieController);
 
@@ -43043,11 +43151,11 @@
 		return value;
 	}
 
-	function sorter(input) {
+	function keysSorter(input) {
 		if (Array.isArray(input)) {
 			return input.sort();
 		} else if (typeof input === 'object') {
-			return sorter(Object.keys(input)).sort(function (a, b) {
+			return keysSorter(Object.keys(input)).sort(function (a, b) {
 				return Number(a) - Number(b);
 			}).map(function (key) {
 				return input[key];
@@ -43095,10 +43203,12 @@
 		});
 
 		return Object.keys(ret).sort().reduce(function (result, key) {
-			if (Boolean(ret[key]) && typeof ret[key] === 'object') {
-				result[key] = sorter(ret[key]);
+			var val = ret[key];
+			if (Boolean(val) && typeof val === 'object' && !Array.isArray(val)) {
+				// Sort object keys, not values
+				result[key] = keysSorter(val);
 			} else {
-				result[key] = ret[key];
+				result[key] = val;
 			}
 
 			return result;

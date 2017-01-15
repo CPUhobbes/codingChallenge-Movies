@@ -17,27 +17,43 @@ class Main extends React.Component {
 		super(props);
 
 		this.state = {
-			movieList: [{}]
+			movieList: [],
+			movieCounter: 0
 		};
 
 		//Bind functions here
 
 		this.updateList = this.updateList.bind(this);
 		this.getList = this.getList.bind(this);
+		this.setCounter = this.setCounter.bind(this);
+		this.getCounter= this.getCounter.bind(this);
 	}
 
 	//Other functions here
 
 	updateList(movieList){
 		this.setState({movieList: movieList});
+		this.setState({movieCounter: this.state.movieCounter+=1});
+	}
+	setCounter(count){
+
+		//Added function so state will update immediately
+		this.setState({movieCounter:count}, () => {
+			return null;
+		});
 	}
 
 	getList(){
 		return this.state.movieList;
 	}
+	getCounter(){
+		return this.state.movieCounter;
+	}
 
 	componentWillMount(){
-		this.state.movieList = MovieController.getMovies();
+		let movies = MovieController.getMovies()
+		this.state.movieList = movies;
+		this.setCounter(movies.length);
 	}
 
 	render(){
@@ -70,7 +86,7 @@ class Main extends React.Component {
 			      	</div>
 			    </nav>
 
-			    {React.cloneElement(this.props.children, {updateList:this.updateList, getList: this.getList})}
+			    {React.cloneElement(this.props.children, {updateList:this.updateList, getList: this.getList, getCounter: this.getCounter, setCounter: this.setCounter})}
 			
 			{/* -- END OF RENDER -- */}
 			</div>

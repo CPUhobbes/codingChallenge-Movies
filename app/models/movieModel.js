@@ -10,8 +10,6 @@ function Movie(id, title, year, genre, rating, actors, edit){
 	this.edit = edit;
 }
 
-
-
 //Seeded Movie List
 let seedList = [
 	new Movie(0, "Indiana Jones", "1983", "Adventure", 5, ["Harrison Ford"], false),

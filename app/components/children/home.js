@@ -64,6 +64,24 @@ class Home extends React.Component {
   		this.props.updateList(MovieController.deleteMovie(pos, id));
   	}
 
+  	/*
+  	 * 	Seeding Functions
+  	 */
+
+  	seedMovies(){
+  		let movies = MovieController.seedMovies();
+  		
+  		this.props.updateList(movies);
+  		this.props.setCounter(movies.length);
+  	}
+
+  	deleteAll(){
+  		let temp = MovieController.deleteAll();
+  		this.props.updateList(temp);
+  	}
+
+
+
   	renderFields(item){
   		if(!item.edit){
 	 		return (<div>
@@ -100,7 +118,7 @@ class Home extends React.Component {
 	render() {
 
 		let movieList= this.props.getList();
-		
+		//console.log(this.props.getList());
 		return(
 			
 				<div className="container">
@@ -121,6 +139,8 @@ class Home extends React.Component {
 							</div>
 				  		</div>
 					</div>
+					<button className="btn btn-success" onClick={()=>this.seedMovies()}>SEED DB</button>
+					<button className="btn btn-danger" onClick={()=>this.deleteAll()}>DELETE ALL</button>
 				</div>	
 			
 		);

@@ -5,21 +5,56 @@ import localStorage from 'localStorage';
 import MovieModel from "./../models/movieModel";
 
 //Seeded movieList from "model"
-let movieList = MovieModel;
+//let movieList = MovieModel;
+//updateStorage();
+let movieList = [];
+
+try {
+	movieList = JSON.parse(localStorage.getItem('db'));
+	if(movieList===null){
+		movieList = [];
+	}
+}
+catch(err){
+	console.log("Cannot read Data");
+}
+
+//let myValue = localStorage.getItem('myKey');
+//console.log(JSON.parse(myValue));
 
 
-//Find Movie Index Helper Function
+
+
+/*
+ *   Helper functions
+ */
+
 function findMovieIndex(id){
 		
 	return _.findIndex(movieList, {'id': id});
 }
 
-// Storage functions
+function updateStorage(){
+	localStorage.setItem('db', JSON.stringify(movieList));
+	console.log(movieList);
+}
+
+
+/*
+ *   Movie Controller
+ */
+
 const movieController = {
 
+
+	/*
+	 *   CRUD functions
+	 */ 
+
 	addMovie: (movie) => {
-		movie.id=movieList.length;
 		movieList.push(movie);
+		updateStorage();
+		return movieList;
 	},
 
 	deleteMovie: (id) => {
@@ -28,6 +63,7 @@ const movieController = {
   			return ele.id === id;
 		});
 
+		updateStorage();
 		return movieList;
 
 	},
@@ -35,16 +71,26 @@ const movieController = {
 	editMovie: (movie) => {
 		let index = findMovieIndex(movie.id);
 		let editFields = _.omitBy(movie, _.isNull);
+		
 
-		//Verify edit was made
-		//console.log(_.assign(movieList[index], editFields));
+		//Assign new object values
+		_.assign(movieList[index], editFields);
 
 		movieList[index].edit= false;
+		updateStorage();
 		return movieList;
 	},
 
+	getMovies: () => {
+		return movieList;
+	},
+
+
+	/*
+	 *   Edit state functions
+	 */ 
+
 	updateEditState:(id) =>{
-		
 		movieList[findMovieIndex(id)].edit= true;
 		return movieList;
 	},
@@ -55,10 +101,23 @@ const movieController = {
 		return movieList;
 	},
 
-	getMovies: () => {
+
+	/*
+	 *   Local storage functions
+	 */ 
+
+	seedMovies: () =>{
+		movieList = MovieModel;
+		localStorage.setItem('db', JSON.stringify(movieList));
+		return movieList;
+	},
+
+	deleteAll:() =>{
+		localStorage.clear();
+		movieList =[];
 		return movieList;
 	}
+
 };
 
-// We export the helpers function (which contains getGithubInfo)
 export default movieController;
