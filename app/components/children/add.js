@@ -10,12 +10,13 @@ class AddMovie extends React.Component {
 		super(props);
 
 		this.state = {
-			id:"",
-			title: "",
-			year:"",
-			genre:"",
-			rating:"",
-			actors:[]
+			id:null,
+			title: null,
+			year:null,
+			genre:null,
+			rating:null,
+			actors:null,
+			edit:false
 		};
 
 		//Bind functions here

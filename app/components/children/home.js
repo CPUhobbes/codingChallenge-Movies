@@ -9,12 +9,13 @@ class Home extends React.Component {
   	constructor(props) {
 		super(props);
 		this.state = {
-			id:"",
-			title: "",
-			year:"",
-			genre:"",
-			rating:"",
-			actors:[]
+			id:null,
+			title: null,
+			year:null,
+			genre:null,
+			rating:null,
+			actors:null
+			//edit not needed since value is already determined
 
 		};
 
@@ -35,27 +36,28 @@ class Home extends React.Component {
 
   	handleSubmit(event){
   		event.preventDefault(); //Prevent refresh
-  		let movieList = this.props.getList();
-  		this.setState({ id: movieList.length});
-  		MovieController.editMovie(this.state);
+  		this.props.updateList(MovieController.editMovie(this.state));
 
   		//Reset current state
-  		this.setState({ id: "" });
-        this.setState({ title: "" });
-        this.setState({ year: "" });
-        this.setState({ genre: "" });
-        this.setState({ rating: "" });
-        this.setState({ actors: [] });
+  		this.setState({ id: null });
+        this.setState({ title: null });
+        this.setState({ year: null });
+        this.setState({ genre: null });
+        this.setState({ rating: null });
+        this.setState({ actors: null });
 
   	}
 
   	//Other functions here
 
   	editMovie(id){
-  		let stateCopy =  this.props.getList();
+  		this.state.id = id;
+		this.props.updateList(MovieController.updateEditState(id));
+  	}
 
-		stateCopy[id].edit=true;  //Change edit field to update state
-		this.props.updateList(stateCopy);
+  	undoEditMovie(id){
+  		this.state.id = null;
+		this.props.updateList(MovieController.undoEditState(id));
   	}
 
   	deleteMovie(pos, id){
@@ -81,11 +83,12 @@ class Home extends React.Component {
 				<div className = "col-md-3"> 
 					<input type="text" className="form-control" id="title" defaultValue={item.title} />
 				</div>
-	 			<div className = "col-md-1"> <input type="text" className="form-control" id="title" defaultValue={item.year} /></div>
-		  		<div className = "col-md-1"> <input type="text" className="form-control" id="title" defaultValue={item.rating} /></div>
-		  		<div className = "col-md-3"> <input type="text" className="form-control" id="title" defaultValue={item.actors} /></div>
+	 			<div className = "col-md-1"> <input type="text" className="form-control" id="yeaar" defaultValue={item.year} /></div>
+		  		<div className = "col-md-1"> <input type="text" className="form-control" id="rating" defaultValue={item.rating} /></div>
+		  		<div className = "col-md-3"> <input type="text" className="form-control" id="actors" defaultValue={item.actors} /></div>
 		  		<div className = "col-md-3">
 		  			<button type="submit" className="btn btn-success">Save</button>
+		  			<button className="btn btn-danger" onClick={()=>this.undoEditMovie(item.id)}>Undo</button>
 					
 	  			</div>
 	  			</form>

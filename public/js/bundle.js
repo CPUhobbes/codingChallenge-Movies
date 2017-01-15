@@ -21746,12 +21746,13 @@
 			var _this = _possibleConstructorReturn(this, (Home.__proto__ || Object.getPrototypeOf(Home)).call(this, props));
 
 			_this.state = {
-				id: "",
-				title: "",
-				year: "",
-				genre: "",
-				rating: "",
-				actors: []
+				id: null,
+				title: null,
+				year: null,
+				genre: null,
+				rating: null,
+				actors: null
+				//edit not needed since value is already determined
 
 			};
 
@@ -21775,17 +21776,15 @@
 			key: "handleSubmit",
 			value: function handleSubmit(event) {
 				event.preventDefault(); //Prevent refresh
-				var movieList = this.props.getList();
-				this.setState({ id: movieList.length });
-				_movieController2.default.editMovie(this.state);
+				this.props.updateList(_movieController2.default.editMovie(this.state));
 
 				//Reset current state
-				this.setState({ id: "" });
-				this.setState({ title: "" });
-				this.setState({ year: "" });
-				this.setState({ genre: "" });
-				this.setState({ rating: "" });
-				this.setState({ actors: [] });
+				this.setState({ id: null });
+				this.setState({ title: null });
+				this.setState({ year: null });
+				this.setState({ genre: null });
+				this.setState({ rating: null });
+				this.setState({ actors: null });
 			}
 
 			//Other functions here
@@ -21793,10 +21792,14 @@
 		}, {
 			key: "editMovie",
 			value: function editMovie(id) {
-				var stateCopy = this.props.getList();
-
-				stateCopy[id].edit = true; //Change edit field to update state
-				this.props.updateList(stateCopy);
+				this.state.id = id;
+				this.props.updateList(_movieController2.default.updateEditState(id));
+			}
+		}, {
+			key: "undoEditMovie",
+			value: function undoEditMovie(id) {
+				this.state.id = null;
+				this.props.updateList(_movieController2.default.undoEditState(id));
 			}
 		}, {
 			key: "deleteMovie",
@@ -21887,19 +21890,19 @@
 								"div",
 								{ className: "col-md-1" },
 								" ",
-								_react2.default.createElement("input", { type: "text", className: "form-control", id: "title", defaultValue: item.year })
+								_react2.default.createElement("input", { type: "text", className: "form-control", id: "yeaar", defaultValue: item.year })
 							),
 							_react2.default.createElement(
 								"div",
 								{ className: "col-md-1" },
 								" ",
-								_react2.default.createElement("input", { type: "text", className: "form-control", id: "title", defaultValue: item.rating })
+								_react2.default.createElement("input", { type: "text", className: "form-control", id: "rating", defaultValue: item.rating })
 							),
 							_react2.default.createElement(
 								"div",
 								{ className: "col-md-3" },
 								" ",
-								_react2.default.createElement("input", { type: "text", className: "form-control", id: "title", defaultValue: item.actors })
+								_react2.default.createElement("input", { type: "text", className: "form-control", id: "actors", defaultValue: item.actors })
 							),
 							_react2.default.createElement(
 								"div",
@@ -21908,6 +21911,13 @@
 									"button",
 									{ type: "submit", className: "btn btn-success" },
 									"Save"
+								),
+								_react2.default.createElement(
+									"button",
+									{ className: "btn btn-danger", onClick: function onClick() {
+											return _this2.undoEditMovie(item.id);
+										} },
+									"Undo"
 								)
 							)
 						)
@@ -22013,12 +22023,13 @@
 			var _this = _possibleConstructorReturn(this, (AddMovie.__proto__ || Object.getPrototypeOf(AddMovie)).call(this, props));
 
 			_this.state = {
-				id: "",
-				title: "",
-				year: "",
-				genre: "",
-				rating: "",
-				actors: []
+				id: null,
+				title: null,
+				year: null,
+				genre: null,
+				rating: null,
+				actors: null,
+				edit: false
 			};
 
 			//Bind functions here
@@ -22218,34 +22229,57 @@
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	//Seeded movieList from "model"
-	var dummyList = _movieModel2.default;
+	var movieList = _movieModel2.default;
+
+	//Find Movie Index Helper Function
+	function findMovieIndex(id) {
+
+		return _.findIndex(movieList, { 'id': id });
+	}
 
 	// Storage functions
 	var movieController = {
 
 		addMovie: function addMovie(movie) {
-			movie.id = dummyList.length;
-			dummyList.push(movie);
+			movie.id = movieList.length;
+			movieList.push(movie);
 		},
 
 		deleteMovie: function deleteMovie(id) {
 
-			_.remove(dummyList, function (ele) {
+			_.remove(movieList, function (ele) {
 				return ele.id === id;
 			});
 
-			return dummyList;
+			return movieList;
 		},
 
 		editMovie: function editMovie(movie) {
+			var index = findMovieIndex(movie.id);
+			var editFields = _.omitBy(movie, _.isNull);
 
-			console.log(movie);
+			//Verify edit was made
+			//console.log(_.assign(movieList[index], editFields));
+
+			movieList[index].edit = false;
+			return movieList;
+		},
+
+		updateEditState: function updateEditState(id) {
+
+			movieList[findMovieIndex(id)].edit = true;
+			return movieList;
+		},
+
+		undoEditState: function undoEditState(id) {
+
+			movieList[findMovieIndex(id)].edit = false;
+			return movieList;
 		},
 
 		getMovies: function getMovies() {
-			return dummyList;
+			return movieList;
 		}
-
 	};
 
 	// We export the helpers function (which contains getGithubInfo)
