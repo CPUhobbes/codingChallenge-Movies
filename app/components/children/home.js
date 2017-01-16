@@ -80,16 +80,15 @@ class Home extends React.Component {
   		this.props.updateList(temp);
   	}
 
-
-
+  	//Dynamically render all fields on to page
   	renderFields(item){
   		if(!item.edit){
 	 		return (<div>
-	 			<div className = "col-md-3"><h5>{item.title}</h5></div>
-	 			<div className = "col-md-1"><h5>{item.year}</h5></div>
-		  		<div className = "col-md-1"><h5>{item.rating}</h5></div>
-		  		<div className = "col-md-5"><h5>{item.actors}</h5></div>
-		  		<div className = "col-md-2">
+	 			<div className = "col-sm-3"><h5>{item.title}</h5></div>
+	 			<div className = "col-sm-1"><h5>{item.year}</h5></div>
+		  		<div className = "col-sm-1"><h5>{item.rating}</h5></div>
+		  		<div className = "col-sm-5"><h5>{item.actors}</h5></div>
+		  		<div className = "col-sm-2">
 		  			<button className="btn btn-primary" onClick={()=>this.editMovie(item.id)}>Edit</button>
 					<button className="btn btn-danger" onClick={()=>this.deleteMovie(item.id)}>Delete</button>
 		  		</div>
@@ -98,13 +97,13 @@ class Home extends React.Component {
 		else{
 			return (<div>
 				<form onSubmit={this.handleSubmit} onChange={this.handleChange} id="movieForm">
-				<div className = "col-md-3"><input type="text" className="form-control" id="title" defaultValue={item.title} /></div>
-	 			<div className = "col-md-1"> <input type="text" className="form-control" id="year" defaultValue={item.year} /></div>
-		  		<div className = "col-md-1"> <input type="text" className="form-control" id="rating" defaultValue={item.rating} /></div>
-		  		<div className = "col-md-5"><input type="text" className="form-control" id="actors" defaultValue={item.actors} /></div>
-		  		<div className = "col-md-2">
+				<div className = "col-sm-3"><input type="text" className="form-control" id="title" defaultValue={item.title} /></div>
+	 			<div className = "col-sm-1"> <input type="text" className="form-control" id="year" defaultValue={item.year} /></div>
+		  		<div className = "col-sm-1"> <input type="text" className="form-control" id="rating" defaultValue={item.rating} /></div>
+		  		<div className = "col-sm-5"><input type="text" className="form-control" id="actors" defaultValue={item.actors} /></div>
+		  		<div className = "col-sm-2">
 		  			<button type="submit" className="btn btn-success">Save</button>
-		  			<button className="btn btn-danger" onClick={()=>this.undoEditMovie(item.id)}>Undo</button>
+		  			<button className="btn btn-warning" onClick={()=>this.undoEditMovie(item.id)}>Undo</button>
 	  			</div>
 	  			</form>
 			</div>);
@@ -114,45 +113,44 @@ class Home extends React.Component {
 	//Render info to page
 	render() {
 
+	{/*css styles*/}
 		const rowBuffer = {margin: '10px 0px'};
 
-
 		let movieList= this.props.getList();
-		//console.log(this.props.getList());
 		return(
-			
-				<div className="container">
-					<div className="row">
-				  		<div className="Absolute-Center">
-							<div className="jumbotron">
-								  <h1>Movie List</h1>
-								  <div className="row" style={rowBuffer}>
-								  		<div className = "col-md-3"> <h3>TITLE</h3></div>
-							 			<div className = "col-md-1"> <h3>YEAR</h3></div>
-								  		<div className = "col-md-1"> <h3>RATING</h3></div>
-								  		<div className = "col-md-5"> <h3>ACTORS</h3></div>
-								  		<div className = "col-md-2"> </div>
 
-								  </div>
-								 <div> {
-								 	/* loop to print out all object in movieList */
-								 	movieList.map(function(item, index){								 		
-								  	return <div key = {index}>
-									  	<div className="row" id={"movie"+index} style={rowBuffer}>
-									  		{/*Render all fields based on edit value */}
-									  		{this.renderFields(item)}  
-										</div>
-									</div>
-								  }, this)} </div>
+			<div className="container">
+			{/* -- START OF RENDER -- */}
+
+				<div className="row">
+					<div className="jumbotron">
+						  <h1>Movie Collection</h1>
+						  <div className="row" style={rowBuffer}>
+						  		<div className = "col-sm-3"> <h4>TITLE</h4></div>
+					 			<div className = "col-sm-1"> <h4>YEAR</h4></div>
+						  		<div className = "col-sm-1"> <h4>RATING</h4></div>
+						  		<div className = "col-sm-5"> <h4>ACTORS</h4></div>
+						  		<div className = "col-sm-2"> </div>
+
+						  </div>
+						 <div> {
+						 	/* loop to print out all object in movieList */
+						 	movieList.map(function(item, index){								 		
+						  	return <div key = {index}>
+							  	<div className="row" id={"movie"+index} style={rowBuffer}>
+							  		{/*Render all fields based on edit value */}
+							  		{this.renderFields(item)}  
+								</div>
 							</div>
-				  		</div>
+						  }, this)} </div>
 					</div>
-					<button className="btn btn-success" onClick={()=>this.seedMovies()}>SEED DB</button>
-					<button className="btn btn-danger" onClick={()=>this.deleteAll()}>DELETE ALL</button>
-				</div>	
+				</div>
+				<button className="btn btn-success" onClick={()=>this.seedMovies()}>SEED DB</button>
+				<button className="btn btn-danger" onClick={()=>this.deleteAll()}>DELETE DB</button>
 			
+			{/* -- END OF RENDER -- */}		
+			</div>	
 		);
 	}
 }
-// Export the component back for use in other files
 export default Home;

@@ -21504,7 +21504,7 @@
 
 	var _search2 = _interopRequireDefault(_search);
 
-	var _add = __webpack_require__(184);
+	var _add = __webpack_require__(181);
 
 	var _add2 = _interopRequireDefault(_add);
 
@@ -21565,7 +21565,7 @@
 
 	var _home2 = _interopRequireDefault(_home);
 
-	var _add = __webpack_require__(184);
+	var _add = __webpack_require__(181);
 
 	var _add2 = _interopRequireDefault(_add);
 
@@ -21573,7 +21573,7 @@
 
 	var _search2 = _interopRequireDefault(_search);
 
-	var _movieController = __webpack_require__(181);
+	var _movieController = __webpack_require__(182);
 
 	var _movieController2 = _interopRequireDefault(_movieController);
 
@@ -21673,7 +21673,7 @@
 								_react2.default.createElement(
 									"a",
 									{ className: "navbar-brand", href: "#" },
-									"Movie Collection"
+									"Movie Collection by Eric Steinberg"
 								)
 							),
 							_react2.default.createElement(
@@ -21744,7 +21744,7 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _movieController = __webpack_require__(181);
+	var _movieController = __webpack_require__(182);
 
 	var _movieController2 = _interopRequireDefault(_movieController);
 
@@ -21845,6 +21845,9 @@
 				var temp = _movieController2.default.deleteAll();
 				this.props.updateList(temp);
 			}
+
+			//Dynamically render all fields on to page
+
 		}, {
 			key: "renderFields",
 			value: function renderFields(item) {
@@ -21856,7 +21859,7 @@
 						null,
 						_react2.default.createElement(
 							"div",
-							{ className: "col-md-3" },
+							{ className: "col-sm-3" },
 							_react2.default.createElement(
 								"h5",
 								null,
@@ -21865,7 +21868,7 @@
 						),
 						_react2.default.createElement(
 							"div",
-							{ className: "col-md-1" },
+							{ className: "col-sm-1" },
 							_react2.default.createElement(
 								"h5",
 								null,
@@ -21874,7 +21877,7 @@
 						),
 						_react2.default.createElement(
 							"div",
-							{ className: "col-md-1" },
+							{ className: "col-sm-1" },
 							_react2.default.createElement(
 								"h5",
 								null,
@@ -21883,7 +21886,7 @@
 						),
 						_react2.default.createElement(
 							"div",
-							{ className: "col-md-5" },
+							{ className: "col-sm-5" },
 							_react2.default.createElement(
 								"h5",
 								null,
@@ -21892,7 +21895,7 @@
 						),
 						_react2.default.createElement(
 							"div",
-							{ className: "col-md-2" },
+							{ className: "col-sm-2" },
 							_react2.default.createElement(
 								"button",
 								{ className: "btn btn-primary", onClick: function onClick() {
@@ -21918,29 +21921,29 @@
 							{ onSubmit: this.handleSubmit, onChange: this.handleChange, id: "movieForm" },
 							_react2.default.createElement(
 								"div",
-								{ className: "col-md-3" },
+								{ className: "col-sm-3" },
 								_react2.default.createElement("input", { type: "text", className: "form-control", id: "title", defaultValue: item.title })
 							),
 							_react2.default.createElement(
 								"div",
-								{ className: "col-md-1" },
+								{ className: "col-sm-1" },
 								" ",
 								_react2.default.createElement("input", { type: "text", className: "form-control", id: "year", defaultValue: item.year })
 							),
 							_react2.default.createElement(
 								"div",
-								{ className: "col-md-1" },
+								{ className: "col-sm-1" },
 								" ",
 								_react2.default.createElement("input", { type: "text", className: "form-control", id: "rating", defaultValue: item.rating })
 							),
 							_react2.default.createElement(
 								"div",
-								{ className: "col-md-5" },
+								{ className: "col-sm-5" },
 								_react2.default.createElement("input", { type: "text", className: "form-control", id: "actors", defaultValue: item.actors })
 							),
 							_react2.default.createElement(
 								"div",
-								{ className: "col-md-2" },
+								{ className: "col-sm-2" },
 								_react2.default.createElement(
 									"button",
 									{ type: "submit", className: "btn btn-success" },
@@ -21948,7 +21951,7 @@
 								),
 								_react2.default.createElement(
 									"button",
-									{ className: "btn btn-danger", onClick: function onClick() {
+									{ className: "btn btn-warning", onClick: function onClick() {
 											return _this2.undoEditMovie(item.id);
 										} },
 									"Undo"
@@ -21966,10 +21969,10 @@
 			value: function render() {
 				var _this3 = this;
 
+				{/*css styles*/}
 				var rowBuffer = { margin: '10px 0px' };
 
 				var movieList = this.props.getList();
-				//console.log(this.props.getList());
 				return _react2.default.createElement(
 					"div",
 					{ className: "container" },
@@ -21978,83 +21981,79 @@
 						{ className: "row" },
 						_react2.default.createElement(
 							"div",
-							{ className: "Absolute-Center" },
+							{ className: "jumbotron" },
+							_react2.default.createElement(
+								"h1",
+								null,
+								"Movie Collection"
+							),
 							_react2.default.createElement(
 								"div",
-								{ className: "jumbotron" },
-								_react2.default.createElement(
-									"h1",
-									null,
-									"Movie List"
-								),
+								{ className: "row", style: rowBuffer },
 								_react2.default.createElement(
 									"div",
-									{ className: "row", style: rowBuffer },
+									{ className: "col-sm-3" },
+									" ",
 									_react2.default.createElement(
-										"div",
-										{ className: "col-md-3" },
-										" ",
-										_react2.default.createElement(
-											"h3",
-											null,
-											"TITLE"
-										)
-									),
-									_react2.default.createElement(
-										"div",
-										{ className: "col-md-1" },
-										" ",
-										_react2.default.createElement(
-											"h3",
-											null,
-											"YEAR"
-										)
-									),
-									_react2.default.createElement(
-										"div",
-										{ className: "col-md-1" },
-										" ",
-										_react2.default.createElement(
-											"h3",
-											null,
-											"RATING"
-										)
-									),
-									_react2.default.createElement(
-										"div",
-										{ className: "col-md-5" },
-										" ",
-										_react2.default.createElement(
-											"h3",
-											null,
-											"ACTORS"
-										)
-									),
-									_react2.default.createElement(
-										"div",
-										{ className: "col-md-2" },
-										" "
+										"h4",
+										null,
+										"TITLE"
 									)
 								),
 								_react2.default.createElement(
 									"div",
-									null,
+									{ className: "col-sm-1" },
 									" ",
-
-									/* loop to print out all object in movieList */
-									movieList.map(function (item, index) {
-										return _react2.default.createElement(
-											"div",
-											{ key: index },
-											_react2.default.createElement(
-												"div",
-												{ className: "row", id: "movie" + index, style: rowBuffer },
-												this.renderFields(item)
-											)
-										);
-									}, this),
+									_react2.default.createElement(
+										"h4",
+										null,
+										"YEAR"
+									)
+								),
+								_react2.default.createElement(
+									"div",
+									{ className: "col-sm-1" },
+									" ",
+									_react2.default.createElement(
+										"h4",
+										null,
+										"RATING"
+									)
+								),
+								_react2.default.createElement(
+									"div",
+									{ className: "col-sm-5" },
+									" ",
+									_react2.default.createElement(
+										"h4",
+										null,
+										"ACTORS"
+									)
+								),
+								_react2.default.createElement(
+									"div",
+									{ className: "col-sm-2" },
 									" "
 								)
+							),
+							_react2.default.createElement(
+								"div",
+								null,
+								" ",
+
+								/* loop to print out all object in movieList */
+								movieList.map(function (item, index) {
+									return _react2.default.createElement(
+										"div",
+										{ key: index },
+										_react2.default.createElement(
+											"div",
+											{ className: "row", id: "movie" + index, style: rowBuffer },
+											this.renderFields(item)
+										)
+									);
+								}, this),
+								" "
 							)
 						)
 					),
@@ -22070,7 +22069,7 @@
 						{ className: "btn btn-danger", onClick: function onClick() {
 								return _this3.deleteAll();
 							} },
-						"DELETE ALL"
+						"DELETE DB"
 					)
 				);
 			}
@@ -22078,8 +22077,6 @@
 
 		return Home;
 	}(_react2.default.Component);
-	// Export the component back for use in other files
-
 
 	exports.default = Home;
 
@@ -22095,11 +22092,254 @@
 		value: true
 	});
 
-	var _localStorage = __webpack_require__(182);
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _movieController = __webpack_require__(182);
+
+	var _movieController2 = _interopRequireDefault(_movieController);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	// AddMovie class component
+	var AddMovie = function (_React$Component) {
+		_inherits(AddMovie, _React$Component);
+
+		function AddMovie(props) {
+			_classCallCheck(this, AddMovie);
+
+			var _this = _possibleConstructorReturn(this, (AddMovie.__proto__ || Object.getPrototypeOf(AddMovie)).call(this, props));
+
+			_this.state = {
+				id: null,
+				title: null,
+				year: null,
+				genre: null,
+				rating: null,
+				actors: null,
+				edit: false
+			};
+
+			//Bind functions here
+			_this.handleSubmit = _this.handleSubmit.bind(_this);
+			_this.handleChange = _this.handleChange.bind(_this);
+			_this.resetMessage = _this.resetMessage.bind(_this);
+			return _this;
+		}
+
+		//Other functions here
+
+
+		_createClass(AddMovie, [{
+			key: "componentWillMount",
+			value: function componentWillMount() {
+				this.setState({ id: this.props.getCounter() });
+			}
+
+			//Submit data to MovieController
+
+		}, {
+			key: "handleSubmit",
+			value: function handleSubmit(event) {
+				event.preventDefault(); //Prevent refresh
+				this.props.updateList(_movieController2.default.addMovie(this.state));
+
+				//Reset current state
+				this.setState({ id: this.props.getCounter() });
+				this.setState({ title: null });
+				this.setState({ year: null });
+				this.setState({ genre: null });
+				this.setState({ rating: null });
+				this.setState({ actors: null });
+
+				var resetForm = document.getElementById("movieForm");
+				resetForm.reset();
+
+				document.getElementById("movieAdded").innerHTML = "<div class=\"alert alert-success\" role=\"alert\">Movie has been Added!</div>";
+			}
+
+			//Update state object based on active input field
+
+		}, {
+			key: "handleChange",
+			value: function handleChange(event) {
+
+				var newState = {};
+				newState[event.target.id] = event.target.value;
+				this.setState(newState);
+			}
+		}, {
+			key: "resetMessage",
+			value: function resetMessage() {
+				document.getElementById("movieAdded").innerHTML = "";
+			}
+
+			//Render info to page
+
+		}, {
+			key: "render",
+			value: function render() {
+
+				return _react2.default.createElement(
+					"div",
+					{ className: "container" },
+					_react2.default.createElement(
+						"div",
+						{ className: "row" },
+						_react2.default.createElement(
+							"div",
+							{ className: "jumbotron" },
+							_react2.default.createElement(
+								"h1",
+								null,
+								"Add a Movie"
+							),
+							_react2.default.createElement(
+								"div",
+								{ className: "row" },
+								_react2.default.createElement(
+									"div",
+									{ className: "col-sm-6 col-sm-offset-3" },
+									_react2.default.createElement(
+										"form",
+										{ onSubmit: this.handleSubmit, onChange: this.handleChange, id: "movieForm", "data-toggle": "validator", role: "form", onFocus: this.resetMessage },
+										_react2.default.createElement(
+											"div",
+											{ className: "form-group" },
+											_react2.default.createElement(
+												"label",
+												{ htmlFor: "title" },
+												"Title"
+											),
+											_react2.default.createElement("input", { type: "text", className: "form-control", id: "title", placeholder: "Movie Title", required: true })
+										),
+										_react2.default.createElement(
+											"div",
+											{ className: "form-group" },
+											_react2.default.createElement(
+												"label",
+												{ htmlFor: "year" },
+												"Year"
+											),
+											_react2.default.createElement("input", { type: "number", className: "form-control", id: "year", placeholder: "Movie Year", required: true })
+										),
+										_react2.default.createElement(
+											"div",
+											{ className: "form-group" },
+											_react2.default.createElement(
+												"label",
+												{ htmlFor: "genre" },
+												"Genre"
+											),
+											_react2.default.createElement("input", { type: "text", className: "form-control", id: "genre", placeholder: "Movie Genre", required: true })
+										),
+										_react2.default.createElement(
+											"div",
+											{ className: "form-group" },
+											_react2.default.createElement(
+												"label",
+												{ htmlFor: "rating" },
+												"Rating (1-5)"
+											),
+											_react2.default.createElement(
+												"select",
+												{ className: "form-control", id: "rating", required: true },
+												_react2.default.createElement(
+													"option",
+													{ selected: true, disabled: true, value: "" },
+													"Choose here"
+												),
+												_react2.default.createElement(
+													"option",
+													null,
+													"1"
+												),
+												_react2.default.createElement(
+													"option",
+													null,
+													"2"
+												),
+												_react2.default.createElement(
+													"option",
+													null,
+													"3"
+												),
+												_react2.default.createElement(
+													"option",
+													null,
+													"4"
+												),
+												_react2.default.createElement(
+													"option",
+													null,
+													"5"
+												)
+											)
+										),
+										_react2.default.createElement(
+											"div",
+											{ className: "form-group" },
+											_react2.default.createElement(
+												"label",
+												{ htmlFor: "actors" },
+												"Actors"
+											),
+											_react2.default.createElement("input", { type: "text", className: "form-control", id: "actors", placeholder: "Movie Actors", required: true })
+										),
+										_react2.default.createElement(
+											"div",
+											{ className: "form-group" },
+											_react2.default.createElement(
+												"div",
+												{ className: "text-center" },
+												_react2.default.createElement(
+													"button",
+													{ type: "submit", className: "btn btn-default" },
+													"Add Movie!"
+												)
+											)
+										)
+									)
+								)
+							),
+							_react2.default.createElement("div", { id: "movieAdded" })
+						)
+					)
+				);
+			}
+		}]);
+
+		return AddMovie;
+	}(_react2.default.Component);
+
+	exports.default = AddMovie;
+
+/***/ },
+/* 182 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	// Import packages
+
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+
+	var _localStorage = __webpack_require__(183);
 
 	var _localStorage2 = _interopRequireDefault(_localStorage);
 
-	var _movieModel = __webpack_require__(183);
+	var _movieModel = __webpack_require__(184);
 
 	var _movieModel2 = _interopRequireDefault(_movieModel);
 
@@ -22212,7 +22452,7 @@
 	exports.default = movieController;
 
 /***/ },
-/* 182 */
+/* 183 */
 /***/ function(module, exports) {
 
 	/* WEBPACK VAR INJECTION */(function(global) {// http://www.rajdeepd.com/articles/chrome/localstrg/LocalStorageSample.htm
@@ -22273,7 +22513,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
 
 /***/ },
-/* 183 */
+/* 184 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -22297,240 +22537,6 @@
 	exports.default = seedList;
 
 /***/ },
-/* 184 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-
-	// Import packages
-
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
-
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-	var _react = __webpack_require__(1);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _movieController = __webpack_require__(181);
-
-	var _movieController2 = _interopRequireDefault(_movieController);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	// AddMovie class component
-	var AddMovie = function (_React$Component) {
-		_inherits(AddMovie, _React$Component);
-
-		function AddMovie(props) {
-			_classCallCheck(this, AddMovie);
-
-			var _this = _possibleConstructorReturn(this, (AddMovie.__proto__ || Object.getPrototypeOf(AddMovie)).call(this, props));
-
-			_this.state = {
-				id: null,
-				title: null,
-				year: null,
-				genre: null,
-				rating: null,
-				actors: null,
-				edit: false
-			};
-
-			//Bind functions here
-			_this.handleSubmit = _this.handleSubmit.bind(_this);
-			_this.handleChange = _this.handleChange.bind(_this);
-			_this.resetMessage = _this.resetMessage.bind(_this);
-			return _this;
-		}
-
-		//Other functions here
-
-
-		_createClass(AddMovie, [{
-			key: "componentWillMount",
-			value: function componentWillMount() {
-				this.setState({ id: this.props.getCounter() });
-			}
-
-			//Submit data to MovieController
-
-		}, {
-			key: "handleSubmit",
-			value: function handleSubmit(event) {
-				event.preventDefault(); //Prevent refresh
-				this.props.updateList(_movieController2.default.addMovie(this.state));
-
-				//Reset current state
-				this.setState({ id: this.props.getCounter() });
-				this.setState({ title: null });
-				this.setState({ year: null });
-				this.setState({ genre: null });
-				this.setState({ rating: null });
-				this.setState({ actors: null });
-
-				var resetForm = document.getElementById("movieForm");
-				resetForm.reset();
-
-				document.getElementById("movieAdded").innerHTML = "<div class=\"alert alert-success\" role=\"alert\">Movie has been Added!</div>";
-			}
-
-			//Update state object based on active input field
-
-		}, {
-			key: "handleChange",
-			value: function handleChange(event) {
-
-				var newState = {};
-				newState[event.target.id] = event.target.value;
-				this.setState(newState);
-			}
-		}, {
-			key: "resetMessage",
-			value: function resetMessage() {
-				document.getElementById("movieAdded").innerHTML = "";
-			}
-
-			//Render info to page
-
-		}, {
-			key: "render",
-			value: function render() {
-
-				return _react2.default.createElement(
-					"div",
-					{ className: "container" },
-					_react2.default.createElement(
-						"div",
-						{ className: "row" },
-						_react2.default.createElement(
-							"div",
-							{ className: "Absolute-Center" },
-							_react2.default.createElement(
-								"div",
-								{ className: "jumbotron" },
-								_react2.default.createElement(
-									"h1",
-									null,
-									"Add a Movie"
-								),
-								_react2.default.createElement(
-									"form",
-									{ onSubmit: this.handleSubmit, onChange: this.handleChange, id: "movieForm", "data-toggle": "validator", role: "form", onFocus: this.resetMessage },
-									_react2.default.createElement(
-										"div",
-										{ className: "form-group" },
-										_react2.default.createElement(
-											"label",
-											{ htmlFor: "title" },
-											"Title"
-										),
-										_react2.default.createElement("input", { type: "text", className: "form-control", id: "title", placeholder: "Movie Title", required: true })
-									),
-									_react2.default.createElement(
-										"div",
-										{ className: "form-group" },
-										_react2.default.createElement(
-											"label",
-											{ htmlFor: "year" },
-											"Year"
-										),
-										_react2.default.createElement("input", { type: "number", className: "form-control", id: "year", placeholder: "Movie Year", required: true })
-									),
-									_react2.default.createElement(
-										"div",
-										{ className: "form-group" },
-										_react2.default.createElement(
-											"label",
-											{ htmlFor: "genre" },
-											"Genre"
-										),
-										_react2.default.createElement("input", { type: "text", className: "form-control", id: "genre", placeholder: "Movie Genre", required: true })
-									),
-									_react2.default.createElement(
-										"div",
-										{ className: "form-group" },
-										_react2.default.createElement(
-											"label",
-											{ htmlFor: "rating" },
-											"Rating (1-5)"
-										),
-										_react2.default.createElement(
-											"select",
-											{ className: "form-control", id: "rating" },
-											_react2.default.createElement(
-												"option",
-												null,
-												"1"
-											),
-											_react2.default.createElement(
-												"option",
-												null,
-												"2"
-											),
-											_react2.default.createElement(
-												"option",
-												null,
-												"3"
-											),
-											_react2.default.createElement(
-												"option",
-												null,
-												"4"
-											),
-											_react2.default.createElement(
-												"option",
-												null,
-												"5"
-											)
-										)
-									),
-									_react2.default.createElement(
-										"div",
-										{ className: "form-group" },
-										_react2.default.createElement(
-											"label",
-											{ htmlFor: "actors" },
-											"Actors"
-										),
-										_react2.default.createElement("input", { type: "text", className: "form-control", id: "actors", placeholder: "Movie Actors", required: true })
-									),
-									_react2.default.createElement(
-										"div",
-										{ className: "form-group" },
-										_react2.default.createElement(
-											"div",
-											{ className: "text-center" },
-											_react2.default.createElement(
-												"button",
-												{ type: "submit", className: "btn btn-default" },
-												"Add Movie!"
-											)
-										)
-									)
-								),
-								_react2.default.createElement("div", { id: "movieAdded" })
-							)
-						)
-					)
-				);
-			}
-		}]);
-
-		return AddMovie;
-	}(_react2.default.Component);
-
-	exports.default = AddMovie;
-
-/***/ },
 /* 185 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -22546,7 +22552,7 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _movieController = __webpack_require__(181);
+	var _movieController = __webpack_require__(182);
 
 	var _movieController2 = _interopRequireDefault(_movieController);
 
@@ -22596,6 +22602,8 @@
 			_this.handleEditChange = _this.handleEditChange.bind(_this);
 			return _this;
 		}
+
+		//Other functions here
 
 		_createClass(Search, [{
 			key: "handleSearchSubmit",
@@ -22661,12 +22669,14 @@
 			value: function deleteMovie(id) {
 
 				this.props.updateList(_movieController2.default.deleteMovie(id));
-				//console.log("delete"+id);
 				_.remove(this.state.search.searchResults, function (ele) {
 					return ele.id === id;
 				});
 				this.setState({ search: { searchResults: this.state.search.searchResults } });
 			}
+
+			//Dynamically render all fields on to page
+
 		}, {
 			key: "renderFields",
 			value: function renderFields(item) {
@@ -22678,7 +22688,7 @@
 						null,
 						_react2.default.createElement(
 							"div",
-							{ className: "col-md-3" },
+							{ className: "col-sm-3" },
 							_react2.default.createElement(
 								"h5",
 								null,
@@ -22687,7 +22697,7 @@
 						),
 						_react2.default.createElement(
 							"div",
-							{ className: "col-md-1" },
+							{ className: "col-sm-1" },
 							_react2.default.createElement(
 								"h5",
 								null,
@@ -22696,7 +22706,7 @@
 						),
 						_react2.default.createElement(
 							"div",
-							{ className: "col-md-1" },
+							{ className: "col-sm-1" },
 							_react2.default.createElement(
 								"h5",
 								null,
@@ -22705,7 +22715,7 @@
 						),
 						_react2.default.createElement(
 							"div",
-							{ className: "col-md-5" },
+							{ className: "col-sm-5" },
 							_react2.default.createElement(
 								"h5",
 								null,
@@ -22714,7 +22724,7 @@
 						),
 						_react2.default.createElement(
 							"div",
-							{ className: "col-md-2" },
+							{ className: "col-sm-2" },
 							_react2.default.createElement(
 								"button",
 								{ className: "btn btn-primary", onClick: function onClick() {
@@ -22740,30 +22750,30 @@
 							{ onSubmit: this.handleEditSubmit, onChange: this.handleEditChange, id: "movieForm" },
 							_react2.default.createElement(
 								"div",
-								{ className: "col-md-3" },
+								{ className: "col-sm-3" },
 								_react2.default.createElement("input", { type: "text", className: "form-control", id: "title", defaultValue: item.title })
 							),
 							_react2.default.createElement(
 								"div",
-								{ className: "col-md-1" },
+								{ className: "col-sm-1" },
 								" ",
-								_react2.default.createElement("input", { type: "text", className: "form-control", id: "yeaar", defaultValue: item.year })
+								_react2.default.createElement("input", { type: "text", className: "form-control", id: "year", defaultValue: item.year })
 							),
 							_react2.default.createElement(
 								"div",
-								{ className: "col-md-1" },
+								{ className: "col-sm-1" },
 								" ",
 								_react2.default.createElement("input", { type: "text", className: "form-control", id: "rating", defaultValue: item.rating })
 							),
 							_react2.default.createElement(
 								"div",
-								{ className: "col-md-5" },
+								{ className: "col-sm-5" },
 								" ",
 								_react2.default.createElement("input", { type: "text", className: "form-control", id: "actors", defaultValue: item.actors })
 							),
 							_react2.default.createElement(
 								"div",
-								{ className: "col-md-2" },
+								{ className: "col-sm-2" },
 								_react2.default.createElement(
 									"button",
 									{ type: "submit", className: "btn btn-success" },
@@ -22771,7 +22781,7 @@
 								),
 								_react2.default.createElement(
 									"button",
-									{ className: "btn btn-danger", onClick: function onClick() {
+									{ className: "btn btn-warning", onClick: function onClick() {
 											return _this2.undoEditMovie(item.id);
 										} },
 									"Undo"
@@ -22782,13 +22792,13 @@
 				}
 			}
 
-			//Other functions here
-
 			//Render info to page
 
 		}, {
 			key: "render",
 			value: function render() {
+
+				{/*css styles*/}
 				var rowBuffer = { margin: '10px 0px' };
 
 				return _react2.default.createElement(
@@ -22799,15 +22809,15 @@
 						{ className: "row" },
 						_react2.default.createElement(
 							"div",
-							{ className: "Absolute-Center" },
+							{ className: "jumbotron" },
+							_react2.default.createElement(
+								"h1",
+								null,
+								"Search Movies"
+							),
 							_react2.default.createElement(
 								"div",
-								{ className: "jumbotron" },
-								_react2.default.createElement(
-									"h1",
-									null,
-									"Search Movies"
-								),
+								{ className: "row", style: rowBuffer },
 								_react2.default.createElement(
 									"form",
 									{ onSubmit: this.handleSearchSubmit, onChange: this.handleSearchChange, id: "movieForm" },
@@ -22840,47 +22850,47 @@
 									{ className: "row", style: rowBuffer },
 									_react2.default.createElement(
 										"div",
-										{ className: "col-md-3" },
+										{ className: "col-sm-3" },
 										" ",
 										_react2.default.createElement(
-											"h3",
+											"h4",
 											null,
 											"TITLE"
 										)
 									),
 									_react2.default.createElement(
 										"div",
-										{ className: "col-md-1" },
+										{ className: "col-sm-1" },
 										" ",
 										_react2.default.createElement(
-											"h3",
+											"h4",
 											null,
 											"YEAR"
 										)
 									),
 									_react2.default.createElement(
 										"div",
-										{ className: "col-md-1" },
+										{ className: "col-sm-1" },
 										" ",
 										_react2.default.createElement(
-											"h3",
+											"h4",
 											null,
 											"RATING"
 										)
 									),
 									_react2.default.createElement(
 										"div",
-										{ className: "col-md-5" },
+										{ className: "col-sm-5" },
 										" ",
 										_react2.default.createElement(
-											"h3",
+											"h4",
 											null,
 											"ACTORS"
 										)
 									),
 									_react2.default.createElement(
 										"div",
-										{ className: "col-md-2" },
+										{ className: "col-sm-2" },
 										" "
 									)
 								),
@@ -22913,8 +22923,6 @@
 
 		return Search;
 	}(_react2.default.Component);
-	// Export the component back for use in other files
-
 
 	exports.default = Search;
 

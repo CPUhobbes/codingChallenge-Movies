@@ -66,27 +66,32 @@ class AddMovie extends React.Component {
 
 		return(
 			
-				<div className="container">
-					<div className="row">
-				  		<div className="Absolute-Center">
-							<div className="jumbotron">
-								<h1>Add a Movie</h1>
+			<div className="container">
+			{/* -- START OF RENDER -- */}
+
+				<div className="row">
+					<div className="jumbotron">
+						<h1>Add a Movie</h1>
+						<div className="row">
+							<div className="col-sm-6 col-sm-offset-3">
+
 								<form onSubmit={this.handleSubmit} onChange={this.handleChange} id="movieForm" data-toggle="validator" role="form" onFocus={this.resetMessage}>
 									<div className="form-group">
-    									<label htmlFor="title">Title</label>
+										<label htmlFor="title">Title</label>
 									    <input type="text" className="form-control" id="title" placeholder="Movie Title" required />
 									</div>
 									<div className="form-group">
-    									<label htmlFor="year">Year</label>
+										<label htmlFor="year">Year</label>
 									    <input type="number" className="form-control" id="year" placeholder="Movie Year" required />
 									</div>
 									<div className="form-group">
-    									<label htmlFor="genre">Genre</label>
+										<label htmlFor="genre">Genre</label>
 									    <input type="text" className="form-control" id="genre" placeholder="Movie Genre" required />
 									</div>
 									<div className="form-group">
-    									<label htmlFor="rating">Rating (1-5)</label>
-									    <select className="form-control" id="rating">
+										<label htmlFor="rating">Rating (1-5)</label>
+									    <select className="form-control" id="rating" required>
+									    	 <option selected disabled value="">Choose here</option>
 											<option>1</option>
 											<option>2</option>
 											<option>3</option>
@@ -95,7 +100,7 @@ class AddMovie extends React.Component {
 										</select>
 									</div>
 									<div className="form-group">
-    									<label htmlFor="actors">Actors</label>
+										<label htmlFor="actors">Actors</label>
 									    <input type="text" className="form-control" id="actors" placeholder="Movie Actors" required />
 									</div>
 									<div className="form-group">
@@ -104,13 +109,15 @@ class AddMovie extends React.Component {
 									    </div>
 									</div>
 								</form>
-								<div id='movieAdded'></div>
 							</div>
-				  		</div>
-					</div>
-				</div>	
-			
-		)
+						</div>
+						<div id='movieAdded'></div>
+					</div>	
+				</div>
+
+			{/* -- END OF RENDER -- */}	
+			</div>	
+		);
 	}
 }
 

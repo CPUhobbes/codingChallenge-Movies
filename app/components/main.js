@@ -74,7 +74,7 @@ class Main extends React.Component {
 					            <span className="icon-bar"></span>
 					            <span className="icon-bar"></span>
 			          		</button>
-			          		<a className="navbar-brand" href="#">Movie Collection</a>
+			          		<a className="navbar-brand" href="#">Movie Collection by Eric Steinberg</a>
 			        	</div>
 			        	<div id="navbar" className="navbar-collapse collapse">
 				          	<ul className="nav navbar-nav navbar-right">
@@ -90,7 +90,6 @@ class Main extends React.Component {
 			
 			{/* -- END OF RENDER -- */}
 			</div>
-
 		)	
 	}
 }
