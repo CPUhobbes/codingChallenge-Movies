@@ -21857,7 +21857,6 @@
 						_react2.default.createElement(
 							"div",
 							{ className: "col-md-3" },
-							" ",
 							_react2.default.createElement(
 								"h5",
 								null,
@@ -21867,7 +21866,6 @@
 						_react2.default.createElement(
 							"div",
 							{ className: "col-md-1" },
-							" ",
 							_react2.default.createElement(
 								"h5",
 								null,
@@ -21877,7 +21875,6 @@
 						_react2.default.createElement(
 							"div",
 							{ className: "col-md-1" },
-							" ",
 							_react2.default.createElement(
 								"h5",
 								null,
@@ -21969,6 +21966,8 @@
 			value: function render() {
 				var _this3 = this;
 
+				var rowBuffer = { margin: '10px 0px' };
+
 				var movieList = this.props.getList();
 				//console.log(this.props.getList());
 				return _react2.default.createElement(
@@ -21990,7 +21989,7 @@
 								),
 								_react2.default.createElement(
 									"div",
-									{ className: "row" },
+									{ className: "row", style: rowBuffer },
 									_react2.default.createElement(
 										"div",
 										{ className: "col-md-3" },
@@ -22023,7 +22022,7 @@
 									),
 									_react2.default.createElement(
 										"div",
-										{ className: "col-md-3" },
+										{ className: "col-md-5" },
 										" ",
 										_react2.default.createElement(
 											"h3",
@@ -22033,7 +22032,7 @@
 									),
 									_react2.default.createElement(
 										"div",
-										{ className: "col-md-3" },
+										{ className: "col-md-2" },
 										" "
 									)
 								),
@@ -22049,7 +22048,7 @@
 											{ key: index },
 											_react2.default.createElement(
 												"div",
-												{ className: "row", id: "movie" + index },
+												{ className: "row", id: "movie" + index, style: rowBuffer },
 												this.renderFields(item)
 											)
 										);
@@ -22680,9 +22679,8 @@
 						_react2.default.createElement(
 							"div",
 							{ className: "col-md-3" },
-							" ",
 							_react2.default.createElement(
-								"p",
+								"h5",
 								null,
 								item.title
 							)
@@ -22690,9 +22688,8 @@
 						_react2.default.createElement(
 							"div",
 							{ className: "col-md-1" },
-							" ",
 							_react2.default.createElement(
-								"p",
+								"h5",
 								null,
 								item.year
 							)
@@ -22700,26 +22697,24 @@
 						_react2.default.createElement(
 							"div",
 							{ className: "col-md-1" },
-							" ",
 							_react2.default.createElement(
-								"p",
+								"h5",
 								null,
 								item.rating
 							)
 						),
 						_react2.default.createElement(
 							"div",
-							{ className: "col-md-3" },
-							" ",
+							{ className: "col-md-5" },
 							_react2.default.createElement(
-								"p",
+								"h5",
 								null,
 								item.actors
 							)
 						),
 						_react2.default.createElement(
 							"div",
-							{ className: "col-md-3" },
+							{ className: "col-md-2" },
 							_react2.default.createElement(
 								"button",
 								{ className: "btn btn-primary", onClick: function onClick() {
@@ -22762,13 +22757,13 @@
 							),
 							_react2.default.createElement(
 								"div",
-								{ className: "col-md-3" },
+								{ className: "col-md-5" },
 								" ",
 								_react2.default.createElement("input", { type: "text", className: "form-control", id: "actors", defaultValue: item.actors })
 							),
 							_react2.default.createElement(
 								"div",
-								{ className: "col-md-3" },
+								{ className: "col-md-2" },
 								_react2.default.createElement(
 									"button",
 									{ type: "submit", className: "btn btn-success" },
@@ -22794,6 +22789,7 @@
 		}, {
 			key: "render",
 			value: function render() {
+				var rowBuffer = { margin: '10px 0px' };
 
 				return _react2.default.createElement(
 					"div",
@@ -22841,11 +22837,51 @@
 								),
 								_react2.default.createElement(
 									"div",
-									{ className: "row" },
+									{ className: "row", style: rowBuffer },
 									_react2.default.createElement(
 										"div",
-										{ className: "col-md-12" },
-										"--------------------------------------"
+										{ className: "col-md-3" },
+										" ",
+										_react2.default.createElement(
+											"h3",
+											null,
+											"TITLE"
+										)
+									),
+									_react2.default.createElement(
+										"div",
+										{ className: "col-md-1" },
+										" ",
+										_react2.default.createElement(
+											"h3",
+											null,
+											"YEAR"
+										)
+									),
+									_react2.default.createElement(
+										"div",
+										{ className: "col-md-1" },
+										" ",
+										_react2.default.createElement(
+											"h3",
+											null,
+											"RATING"
+										)
+									),
+									_react2.default.createElement(
+										"div",
+										{ className: "col-md-5" },
+										" ",
+										_react2.default.createElement(
+											"h3",
+											null,
+											"ACTORS"
+										)
+									),
+									_react2.default.createElement(
+										"div",
+										{ className: "col-md-2" },
+										" "
 									)
 								),
 								_react2.default.createElement(
@@ -22861,7 +22897,7 @@
 											{ key: index },
 											_react2.default.createElement(
 												"div",
-												{ className: "row", id: "movie" + index },
+												{ className: "row", id: "movie" + index, style: rowBuffer },
 												this.renderFields(item)
 											)
 										);
