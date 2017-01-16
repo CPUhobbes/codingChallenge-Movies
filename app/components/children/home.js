@@ -60,8 +60,8 @@ class Home extends React.Component {
 		this.props.updateList(MovieController.undoEditState(id));
   	}
 
-  	deleteMovie(pos, id){
-  		this.props.updateList(MovieController.deleteMovie(pos, id));
+  	deleteMovie(id){
+  		this.props.updateList(MovieController.deleteMovie(id));
   	}
 
   	/*

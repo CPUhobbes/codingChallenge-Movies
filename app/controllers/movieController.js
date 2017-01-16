@@ -69,12 +69,13 @@ const movieController = {
 	},
 	  
 	editMovie: (movie) => {
+		console.log(movie);
 		let index = findMovieIndex(movie.id);
 		let editFields = _.omitBy(movie, _.isNull);
 		
 
 		//Assign new object values
-		_.assign(movieList[index], editFields);
+		console.log(_.assign(movieList[index], editFields));
 
 		movieList[index].edit= false;
 		updateStorage();
