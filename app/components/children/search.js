@@ -2,6 +2,7 @@
 
 import React from "react";
 import MovieController from "./../../controllers/movieController";
+import Rx from 'rxjs/Rx';
 
 // Load the full build.
 const _ = require('lodash');
@@ -49,6 +50,8 @@ class Search extends React.Component {
     	this.setState(newState);
   	}
 
+
+
   	handleEditChange(event){
   		let newState = this.state.edit;
     	newState[event.target.id] = event.target.value;
@@ -87,7 +90,7 @@ class Search extends React.Component {
 
   		this.props.updateList(MovieController.deleteMovie(id));
   		//console.log("delete"+id);
-  		_.remove(this.state.searchResults, (ele) => {
+  		_.remove(this.state.search.searchResults, (ele) => {
   			return ele.id === id;
 		});
 		this.setState({search:{searchResults: this.state.search.searchResults}})
@@ -130,6 +133,7 @@ class Search extends React.Component {
 
 	//Render info to page
 	render() {
+		
 
 		return(
 			
