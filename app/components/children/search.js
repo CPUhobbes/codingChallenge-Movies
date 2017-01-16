@@ -2,7 +2,7 @@
 
 import React from "react";
 import MovieController from "./../../controllers/movieController";
-import Rx from 'rxjs/Rx';
+import Bacon from 'baconjs';
 
 // Load the full build.
 const _ = require('lodash');
@@ -37,11 +37,14 @@ class Search extends React.Component {
   	handleSearchSubmit(event){
   		event.preventDefault(); //Prevent refresh
   		let movieList = this.props.getList();
-  		//this.setState({ id: movieList.length});
-
         let resetForm = document.getElementById("movieForm");
 		resetForm.reset();
-		this.setState({search: {searchResults: _.filter(movieList, {'title': this.state.search.searchTitle})}});
+		let query = this.state.search.searchTitle.toLowerCase(); //ignore case
+		let results = _.filter(movieList, function(titles){
+			let lower = titles.title.toLowerCase(); //ignore case
+			return lower.indexOf(query) > -1;
+		});
+		this.setState({search:{searchResults:results}});
   	}
 
   	handleSearchChange(event){
@@ -133,8 +136,7 @@ class Search extends React.Component {
 
 	//Render info to page
 	render() {
-		
-
+        
 		return(
 			
 				<div className="container">
@@ -157,6 +159,7 @@ class Search extends React.Component {
 									<div className="col-md-12">
 										--------------------------------------
 									</div>
+
 								</div>
 								<div> {
 

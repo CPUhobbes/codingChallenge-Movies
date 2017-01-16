@@ -22,6 +22,7 @@ class AddMovie extends React.Component {
 		//Bind functions here
 		this.handleSubmit = this.handleSubmit.bind(this);
 		this.handleChange = this.handleChange.bind(this);
+		this.resetMessage = this.resetMessage.bind(this);
   	}
 
   	//Other functions here
@@ -44,6 +45,8 @@ class AddMovie extends React.Component {
 
         let resetForm = document.getElementById("movieForm");
 		resetForm.reset();
+
+		document.getElementById("movieAdded").innerHTML = "<div class=\"alert alert-success\" role=\"alert\">Movie has been Added!</div>";
   	}
 
   	//Update state object based on active input field
@@ -52,6 +55,10 @@ class AddMovie extends React.Component {
   		let newState = {};
     	newState[event.target.id] = event.target.value;
     	this.setState(newState);
+  	}
+
+  	resetMessage(){
+  		document.getElementById("movieAdded").innerHTML ="";
   	}
 
 	//Render info to page
@@ -64,18 +71,18 @@ class AddMovie extends React.Component {
 				  		<div className="Absolute-Center">
 							<div className="jumbotron">
 								<h1>Add a Movie</h1>
-								<form onSubmit={this.handleSubmit} onChange={this.handleChange} id="movieForm">
+								<form onSubmit={this.handleSubmit} onChange={this.handleChange} id="movieForm" data-toggle="validator" role="form" onFocus={this.resetMessage}>
 									<div className="form-group">
     									<label htmlFor="title">Title</label>
-									    <input type="text" className="form-control" id="title" placeholder="Movie Title" />
+									    <input type="text" className="form-control" id="title" placeholder="Movie Title" required />
 									</div>
 									<div className="form-group">
     									<label htmlFor="year">Year</label>
-									    <input type="number" className="form-control" id="year" placeholder="Movie Year" />
+									    <input type="number" className="form-control" id="year" placeholder="Movie Year" required />
 									</div>
 									<div className="form-group">
     									<label htmlFor="genre">Genre</label>
-									    <input type="text" className="form-control" id="genre" placeholder="Movie Genre" />
+									    <input type="text" className="form-control" id="genre" placeholder="Movie Genre" required />
 									</div>
 									<div className="form-group">
     									<label htmlFor="rating">Rating (1-5)</label>
@@ -89,7 +96,7 @@ class AddMovie extends React.Component {
 									</div>
 									<div className="form-group">
     									<label htmlFor="actors">Actors</label>
-									    <input type="text" className="form-control" id="actors" placeholder="Movie Actors" />
+									    <input type="text" className="form-control" id="actors" placeholder="Movie Actors" required />
 									</div>
 									<div className="form-group">
 									    <div className="text-center">
@@ -97,6 +104,7 @@ class AddMovie extends React.Component {
 									    </div>
 									</div>
 								</form>
+								<div id='movieAdded'></div>
 							</div>
 				  		</div>
 					</div>

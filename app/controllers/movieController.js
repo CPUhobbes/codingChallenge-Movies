@@ -4,11 +4,12 @@
 import localStorage from 'localStorage';
 import MovieModel from "./../models/movieModel";
 
-//Seeded movieList from "model"
-//let movieList = MovieModel;
-//updateStorage();
 let movieList = [];
 
+
+/*
+ *	Import data from storage
+ */
 try {
 	movieList = JSON.parse(localStorage.getItem('db'));
 	if(movieList===null){
@@ -18,11 +19,6 @@ try {
 catch(err){
 	console.log("Cannot read Data");
 }
-
-//let myValue = localStorage.getItem('myKey');
-//console.log(JSON.parse(myValue));
-
-
 
 
 /*
@@ -73,9 +69,8 @@ const movieController = {
 		let index = findMovieIndex(movie.id);
 		let editFields = _.omitBy(movie, _.isNull);
 		
-
 		//Assign new object values
-		console.log(_.assign(movieList[index], editFields));
+		_.assign(movieList[index], editFields);
 
 		movieList[index].edit= false;
 		updateStorage();
